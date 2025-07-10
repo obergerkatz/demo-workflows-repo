@@ -8,24 +8,24 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Configure AWS Credentials
-        uses: actions/aws/configure-creds
+        uses: ./actions/aws/configure-creds
 
       - name: Build
-        uses: actions/docker/build
+        uses: ./actions/docker/build
 
       - name: Push
-        uses: actions/docker/push
+        uses: ./actions/docker/push
 
       - name: Build and Push Docker Image
-        uses: action-sets/docker/build-and-push
+        uses: ./action-sets/docker/build-and-push
 
   run-only-action-sets:
     needs: run-all-actions
     runs-on: ubuntu-latest
     steps:
       - name: Build and Push Docker Image
-        uses: action-sets/docker/build-and-push
+        uses: ./action-sets/docker/build-and-push
 
   run-only-reusable-ci:
     needs: run-only-action-sets
-    uses: .github/workflows/reusable-ci.yaml
+    uses: ./.github/workflows/reusable-ci.yaml
