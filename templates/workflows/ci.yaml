@@ -1,0 +1,17 @@
+name: Template CI Workflow
+description: Simple template CI workflow with echo steps
+on:
+  workflow_call:
+
+jobs:
+  echo-template:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo from template
+        run: echo "👋 Hello from template workflow!"
+
+      - name: Echo from action
+        uses: ../../actions/docker/build
+
+      - name: Echo from action-set
+        uses: ../../templates/action-sets/docker-build-push

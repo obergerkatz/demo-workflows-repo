@@ -12,3 +12,6 @@ jobs:
 
       - name: "Echo from action-set: docker-build-push"
         uses: ./templates/action-sets/docker-build-push@main
+
+  run-template-ci:
+    uses: ./templates/workflows/ci.yaml
