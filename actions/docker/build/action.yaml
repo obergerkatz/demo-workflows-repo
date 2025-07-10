@@ -1,0 +1,8 @@
+name: "Docker Build (Dummy)"
+description: "Simulates a Docker build step"
+runs:
+  using: "composite"
+  steps:
+    - name: Echo build
+      shell: bash
+      run: echo "🔨 Simulating docker build..."

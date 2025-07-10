@@ -1,0 +1,10 @@
+name: "Docker Build and Push (Demo Set)"
+description: "Simulates running docker build and push using two actions"
+runs:
+  using: "composite"
+  steps:
+    - name: Build step
+      uses: ./actions/docker/build
+
+    - name: Push step
+      uses: ./actions/docker/push

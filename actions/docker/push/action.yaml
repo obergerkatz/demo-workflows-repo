@@ -1,0 +1,8 @@
+name: "Docker Push (Dummy)"
+description: "Simulates a Docker push step"
+runs:
+  using: "composite"
+  steps:
+    - name: Echo push
+      shell: bash
+      run: echo "📤 Simulating docker push..."
