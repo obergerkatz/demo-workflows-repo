@@ -18,4 +18,4 @@ jobs:
 
   run-template-ci:
     needs: [run-echo]
-    uses: ./.github/workflows/template_ci.yaml
+    uses: ./.github/workflows/templates/template_ci.yaml
