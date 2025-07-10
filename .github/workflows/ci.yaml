@@ -34,5 +34,5 @@ jobs:
     uses: ./.github/workflows/reusable-ci.yaml
 
   run-only-reusable-cd:
-    needs: run-only-action-sets
+    needs: run-only-reusable-ci
     uses: ./.github/workflows/reusable-cd.yaml
