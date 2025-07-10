@@ -1,5 +1,4 @@
 name: Template CI Workflow
-description: Simple template CI workflow with echo steps
 on:
   workflow_call:
 
