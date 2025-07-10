@@ -1,0 +1,8 @@
+name: "ArgoCD Sync and Wait (Demo Set)"
+description: "Actions to simulate ArgoCD sync and wait steps in a composite action set"
+runs:
+  using: "composite"
+  steps:
+    - name: Echo build
+      shell: bash
+      run: echo "🔄 Simulating ArgoCD sync step..."

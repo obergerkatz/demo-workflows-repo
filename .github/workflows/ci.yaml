@@ -16,6 +16,15 @@ jobs:
       - name: Push
         uses: ./actions/docker/push
 
+      - name: Sync ArgoCD
+        uses: ./actions/argocd/sync
+
+      - name: Wait for ArgoCD
+        uses: ./actions/argocd/wait
+
+      - name: Sync ArgoCD
+        uses: ./action-sets/argocd/sync-and-wait
+
       - name: Build and Push Docker Image
         uses: ./action-sets/docker/build-and-push
 
@@ -28,6 +37,9 @@ jobs:
 
       - name: Build and Push Docker Image
         uses: ./action-sets/docker/build-and-push
+
+      - name: Sync ArgoCD
+        uses: ./action-sets/argocd/sync-and-wait
 
   run-only-reusable-ci:
     needs: run-only-action-sets

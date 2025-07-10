@@ -1,0 +1,10 @@
+name: "Sync and Wait (Demo Set)"
+description: "Simulates sync and wait commands in argocd"
+runs:
+  using: "composite"
+  steps:
+    - name: Sync step
+      uses: ./actions/argocd/sync
+
+    - name: Wait step
+      uses: ./actions/argocd/wait

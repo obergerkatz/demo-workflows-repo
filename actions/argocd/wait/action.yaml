@@ -1,0 +1,8 @@
+name: "ArgoCD Wait Action (Demo Set)"
+description: "Simulates a wait step for ArgoCD deployments"
+runs:
+  using: "composite"
+  steps:
+    - name: Echo push
+      shell: bash
+      run: echo "⏳ Simulating ArgoCD wait step..."
