@@ -6,5 +6,8 @@ jobs:
   echo-template:
     runs-on: ubuntu-latest
     steps:
-      - name: Echo from template
+      - name: Echo from template 1
+        run: echo "👋 Hello from template workflow for CD!"
+
+      - name: Echo from template 2
         run: echo "👋 Hello from template workflow for CD!"
