@@ -8,13 +8,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Configure AWS Credentials
-        uses: ./actions/aws/configure-creds@main
+        uses: ./actions/aws/configure-creds
 
       - name: Echo from docker/build
-        uses: ./actions/docker/build@main
+        uses: ./actions/docker/build
 
       - name: "Echo from action-set: docker-build-push"
-        uses: ./templates/action-sets/docker-build-push@main
+        uses: ./templates/action-sets/docker-build-push
 
   run-template-ci:
     uses: ./templates/workflows/ci.yaml
