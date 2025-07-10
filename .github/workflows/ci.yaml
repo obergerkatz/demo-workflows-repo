@@ -1,7 +1,7 @@
 name: CI
 on: [push]
 jobs:
-  run-echo:
+  run-all-types:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -19,6 +19,16 @@ jobs:
       - name: Build and Push Docker Image
         uses: ./action-sets/docker/build-and-push
 
-  run-reusable-ci:
-    needs: [run-echo]
+      - name: Run Reusable CI
+        uses: ./.github/workflows/reusable-ci.yaml
+
+  run-only-action-sets:
+    needs: run-all-types
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build and Push Docker Image
+        uses: ./action-sets/docker/build-and-push
+
+  run-only-reusable-ci:
+    needs: run-only-action-sets
     uses: ./.github/workflows/reusable-ci.yaml
