@@ -10,12 +10,15 @@ jobs:
       - name: Configure AWS Credentials
         uses: ./actions/aws/configure-creds
 
-      - name: Echo from docker/build
+      - name: Build
         uses: ./actions/docker/build
 
-      - name: "Echo from action-set: docker-build-push"
-        uses: ./templates/action-sets/docker-build-push
+      - name: Push
+        uses: ./actions/docker/push
 
-  run-template-ci:
+      - name: Build and Push Docker Image
+        uses: ./action-sets/docker/build-and-push
+
+  run-reusable-ci:
     needs: [run-echo]
-    uses: ./.github/workflows/templates/template_ci.yaml
+    uses: ./.github/workflows/reusable-ci.yaml
