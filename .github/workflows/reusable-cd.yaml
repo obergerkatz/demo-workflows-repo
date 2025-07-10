@@ -7,4 +7,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Echo from template
-        run: echo "👋 Hello from template workflow for CI!"
+        run: echo "👋 Hello from template workflow for CD!"
