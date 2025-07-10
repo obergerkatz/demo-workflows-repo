@@ -4,7 +4,7 @@ runs:
   using: "composite"
   steps:
     - name: Build step
-      uses: ../../actions/docker/build
+      uses: actions/docker/build
 
     - name: Push step
-      uses: ../../actions/docker/push
+      uses: actions/docker/push
