@@ -3,7 +3,16 @@ on:
   workflow_call:
 
 jobs:
-  echo-template:
+  echo-template-1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo from template 1
+        run: echo "👋 Hello from template workflow for CI!"
+
+      - name: Echo from template 2
+        run: echo "👋 Hello from template workflow for CI!"
+
+  echo-template-2:
     runs-on: ubuntu-latest
     steps:
       - name: Echo from template 1
