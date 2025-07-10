@@ -1,16 +1,11 @@
 name: CI
 on: [push]
-env:
-  OVERRIDE_INPUT: "I'm an override input"
 jobs:
   run-all-actions:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Override Inputs
-        uses: ./actions/override-input
 
       - name: Configure AWS Credentials
         uses: ./actions/aws/configure-creds
