@@ -9,9 +9,3 @@ jobs:
     steps:
       - name: Echo from template
         run: echo "👋 Hello from template workflow!"
-
-      - name: Echo from action
-        uses: ../../actions/docker/build
-
-      - name: Echo from action-set
-        uses: ../../templates/action-sets/docker-build-push

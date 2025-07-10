@@ -17,4 +17,4 @@ jobs:
         uses: ./templates/action-sets/docker-build-push
 
   run-template-ci:
-    uses: ./templates/workflows/ci.yaml@main
+    uses: .github/workflows/templates/ci.yaml
