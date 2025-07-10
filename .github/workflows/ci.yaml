@@ -1,0 +1,14 @@
+name: CI
+on: [push]
+jobs:
+  run-echo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Echo from docker/build
+        uses: ./actions/docker/build
+
+      - name: "Echo from action-set: docker-build-push"
+        uses: ./templates/action-sets/docker-build-push

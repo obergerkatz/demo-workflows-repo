@@ -1,0 +1,31 @@
+# Node modules (if you're using tools like semantic-release or linting via Node)
+node_modules/
+
+# Python virtual environments (if using pre-commit hooks or tooling in Python)
+.venv/
+venv/
+__pycache__/
+
+# macOS system files
+.DS_Store
+
+# Log files
+*.log
+
+# Workflow docs (if auto-generated)
+WORKFLOWS.md
+
+# Local GitHub Actions test tool (act)
+.act/
+
+# Editor files
+*.swp
+*.swo
+.idea/
+.vscode/
+*.code-workspace
+
+# Pre-commit and temp files
+.pre-commit-config.yaml.lock
+*.bak
+*.tmp
