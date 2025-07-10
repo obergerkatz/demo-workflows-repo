@@ -17,14 +17,14 @@ jobs:
         uses: ./actions/docker/push
 
       - name: Build and Push Docker Image
-        uses: ./action-sets/docker/build-and-push/action.yaml
+        uses: ./action-sets/docker/build-and-push
 
   run-only-action-sets:
     needs: run-all-actions
     runs-on: ubuntu-latest
     steps:
       - name: Build and Push Docker Image
-        uses: ./action-sets/docker/build-and-push/action.yaml
+        uses: ./action-sets/docker/build-and-push
 
   run-only-reusable-ci:
     needs: run-only-action-sets
