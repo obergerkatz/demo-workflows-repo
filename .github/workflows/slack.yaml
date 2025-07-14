@@ -62,7 +62,7 @@ jobs:
             channel: ${{ secrets.SLACK_CHANNEL_ID }}
             markdown_text: "Deployment completed successfully! :tada:\n\n<
 
-      - name: Send Slack message
+      - name: Send Slack message 2
         id: post
         uses: slackapi/slack-github-action@v2.1.1
         with:
