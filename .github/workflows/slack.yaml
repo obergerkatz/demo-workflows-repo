@@ -65,3 +65,10 @@ jobs:
             channel: ${{ secrets.SLACK_CHANNEL_ID }}
             thread_ts: ""
             text: ✅ *Deployment completed* - <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>
+
+      - name: Comment in thread 4
+        uses: actions/slack/send-message
+        with:
+          channel: ${{ secrets.SLACK_CHANNEL_ID }}
+          text: '✅ *Deployment finished* ✅'
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
