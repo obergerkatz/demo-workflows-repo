@@ -38,12 +38,8 @@ jobs:
                     text: "*Run #:*\n${{ github.run_number }}"
                   - type: mrkdwn
                     text: "*Actor:*\n${{ github.actor }}"
-            attachments:
-              - color: "dbab09"
-                fields:
-                  - title: "Status"
-                    short: true
-                    value: "In Progress"
+                  - type: mrkdwn
+                    text: "*Run URL:*\n${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
       - name: Comment in thread
         uses: slackapi/slack-github-action@v2.1.1
