@@ -19,7 +19,7 @@ inputs:
 outputs:
   ts:
     description: "Timestamp of the posted Slack message"
-    value: ${{ steps.send_slack_message.outputs.ts }}
+    value: "${{ steps.send_slack_message.outputs.ts }}"
 
 runs:
   using: "composite"
