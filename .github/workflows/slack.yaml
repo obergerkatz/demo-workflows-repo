@@ -36,7 +36,7 @@ jobs:
                   - type: mrkdwn
                     text: "*Run URL:*\n<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>"
 
-      - name: Comment in thread
+      - name: Comment in thread 1
         uses: slackapi/slack-github-action@v2.1.1
         with:
           method: chat.postMessage
@@ -44,4 +44,24 @@ jobs:
           payload: |
             channel: ${{ secrets.SLACK_CHANNEL_ID }}
             thread_ts: "${{ steps.launch_sequence.outputs.ts }}"
+            text: ✅ *Deployment completed* - <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>
+
+      - name: Comment in thread 2
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          payload: |
+            channel: ${{ secrets.SLACK_CHANNEL_ID }}
+            thread_ts: "${{ steps.launch_sequence.outputs.ts }}"
+            text: ✅ *Deployment completed* - <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>
+
+      - name: Comment in thread 3
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          payload: |
+            channel: ${{ secrets.SLACK_CHANNEL_ID }}
+            thread_ts: ""
             text: ✅ *Deployment completed* - <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>
