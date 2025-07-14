@@ -40,7 +40,7 @@ jobs:
           token: ${{ secrets.SLACK_BOT_TOKEN }}
           payload: |
             channel: ${{ secrets.SLACK_CHANNEL_ID }}
-            ts: "${{ steps.launch_sequence.outputs.ts }}"
+            thread_ts: "${{ steps.launch_sequence.outputs.ts }}"
             text: "Deployment finished! :rocket:"
             attachments:
               - color: "28a745"
