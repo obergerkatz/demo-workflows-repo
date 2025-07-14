@@ -48,3 +48,16 @@ jobs:
                   - title: "Status"
                     short: true
                     value: "Completed"
+
+      - name: Comment in thread
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          payload: |
+            channel: ${{ secrets.SLACK_CHANNEL_ID }}
+            thread_ts: "${{ steps.launch_sequence.outputs.ts }}"
+            text: |
+              ✅ Deployment completed!
+              <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>
+      
