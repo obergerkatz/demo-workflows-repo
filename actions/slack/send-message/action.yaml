@@ -33,5 +33,5 @@ runs:
         payload: |
           channel: ${{ inputs.channel }}
           text: ${{ inputs.text }}
-          thread_ts: ${{ inputs.thread_ts }}
+          thread_ts: "${{ inputs.thread_ts }}"
           
