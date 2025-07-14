@@ -2,11 +2,6 @@ name: Manual Slack Deployment Notification
 
 on:
   workflow_dispatch:
-    inputs:
-      delay_seconds:
-        description: "Seconds to wait before updating message"
-        required: false
-        default: "3"
 
 jobs:
   notify-deployment:
@@ -50,26 +45,5 @@ jobs:
             channel: ${{ secrets.SLACK_CHANNEL_ID }}
             thread_ts: "${{ steps.launch_sequence.outputs.ts }}"
             text: |
-              ✅ Deployment completed!
-              <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>
+              ✅ *Deployment completed* - <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>
 
-      - name: Send Slack message
-        uses: slackapi/slack-github-action@v2.1.1
-        with:
-          method: chat.postMessage
-          token: ${{ secrets.SLACK_BOT_TOKEN }}
-          payload: |
-            channel: ${{ secrets.SLACK_CHANNEL_ID }}
-            text: "Deployment completed successfully! :tada:\n\n<"
-            markdown_text: "Deployment completed successfully! :tada:\n\n<"
-
-      - name: Send Slack message 2
-        uses: slackapi/slack-github-action@v2.1.1
-        with:
-          method: chat.postMessage
-          token: ${{ secrets.SLACK_BOT_TOKEN }}
-          payload: |
-            channel: ${{ secrets.SLACK_CHANNEL_ID }}
-            text: "Deployment completed successfully! :tada:\n\n<"
-            markdown_text: "*Deployment* completed successfully! :tada:\n\n<"
-            thread_ts: "${{ steps.launch_sequence.outputs.ts }}"
