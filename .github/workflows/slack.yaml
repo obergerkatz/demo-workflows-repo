@@ -67,7 +67,7 @@ jobs:
             text: ✅ *Deployment completed* - <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>
 
       - name: Comment in thread 4
-        uses: actions/slack/send-message
+        uses: ./actions/slack/send-message
         with:
           channel: ${{ secrets.SLACK_CHANNEL_ID }}
           text: '✅ *Deployment finished* ✅'
