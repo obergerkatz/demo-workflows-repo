@@ -77,10 +77,10 @@ jobs:
           text: '✅ *Deployment finished* ✅'
           token: ${{ secrets.SLACK_BOT_TOKEN }}
 
-      - name: Comment in thread 4
+      - name: Comment in thread 5
         uses: ./actions/slack/send-message
         with:
           channel: ${{ secrets.SLACK_CHANNEL_ID }}
           text: '✅ *Deployment finished* ✅'
           token: ${{ secrets.SLACK_BOT_TOKEN }}
-          thread_ts: ${{ steps.comment_thread_4.outputs.ts }}
+          thread_ts: "${{ steps.comment_thread_4.outputs.ts }}"
