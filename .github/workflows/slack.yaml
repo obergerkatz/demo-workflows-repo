@@ -29,25 +29,24 @@ jobs:
                   - title: "Status"
                     short: true
                     value: "In Progress"
-
-      - name: Countdown until launch
-        run: sleep ${{ github.event.inputs.delay_seconds }}
-
-      - name: Update the original message with success
-        uses: slackapi/slack-github-action@v2.1.1
-        with:
-          method: chat.update
-          token: ${{ secrets.SLACK_BOT_TOKEN }}
-          payload: |
-            channel: ${{ secrets.SLACK_CHANNEL_ID }}
-            ts: "${{ steps.launch_sequence.outputs.ts }}"
-            text: "Deployment finished! :rocket:"
-            attachments:
-              - color: "28a745"
-                fields:
-                  - title: "Status"
-                    short: true
-                    value: "Completed"
+            blocks:
+                - type: header
+                    text:
+                    type: plain_text
+                    text: ":rocket: Deployment Notification"
+                - type: section
+                    text:
+                    type: mrkdwn
+                    text: "Deployment initiated for `${{ github.repository }}`"
+                - type: section
+                    fields:
+                      - type: mrkdwn
+                        text: "*Workflow:*\n`${{ github.workflow }}`"
+                      - type: mrkdwn
+                        text: "*Run #:*\n`${{ github.run_number }}`"
+                      - type: mrkdwn
+                        text: "*Repository:*\n`${{ github.repository }}`"
+            
 
       - name: Comment in thread
         uses: slackapi/slack-github-action@v2.1.1
