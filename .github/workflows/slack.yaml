@@ -45,5 +45,3 @@ jobs:
             channel: ${{ secrets.SLACK_CHANNEL_ID }}
             thread_ts: "${{ steps.launch_sequence.outputs.ts }}"
             text: ✅ *Deployment completed* - <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>
-            blocks: ""
-
