@@ -66,6 +66,9 @@ jobs:
             thread_ts: ""
             text: ✅ *Deployment completed* - <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>
 
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Comment in thread 4
         uses: ./actions/slack/send-message
         with:
