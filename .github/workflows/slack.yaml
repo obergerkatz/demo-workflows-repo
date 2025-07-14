@@ -60,7 +60,7 @@ jobs:
           token: ${{ secrets.SLACK_BOT_TOKEN }}
           payload: |
             channel: ${{ secrets.SLACK_CHANNEL_ID }}
-            markdown_text: "Deployment completed successfully! :tada:\n\n<
+            markdown_text: "Deployment completed successfully! :tada:\n\n<"
 
       - name: Send Slack message 2
         uses: slackapi/slack-github-action@v2.1.1
@@ -69,5 +69,5 @@ jobs:
           token: ${{ secrets.SLACK_BOT_TOKEN }}
           payload: |
             channel: ${{ secrets.SLACK_CHANNEL_ID }}
-            markdown_text: "Deployment completed successfully! :tada:\n\n<
+            markdown_text: "Deployment completed successfully! :tada:\n\n<"
             thread_ts: "${{ steps.launch_sequence.outputs.ts }}"
