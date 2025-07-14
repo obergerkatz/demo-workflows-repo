@@ -39,7 +39,7 @@ jobs:
                   - type: mrkdwn
                     text: "*Actor:*\n${{ github.actor }}"
                   - type: mrkdwn
-                    text: "*Run URL:*\n${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                    text: "*Run URL:*\n<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>"
 
       - name: Comment in thread
         uses: slackapi/slack-github-action@v2.1.1
