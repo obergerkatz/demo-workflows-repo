@@ -54,7 +54,6 @@ jobs:
               <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>
 
       - name: Send Slack message
-        id: post
         uses: slackapi/slack-github-action@v2.1.1
         with:
           token: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -63,7 +62,6 @@ jobs:
             markdown_text: "Deployment completed successfully! :tada:\n\n<
 
       - name: Send Slack message 2
-        id: post
         uses: slackapi/slack-github-action@v2.1.1
         with:
           token: ${{ secrets.SLACK_BOT_TOKEN }}
