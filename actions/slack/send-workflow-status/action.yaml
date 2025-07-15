@@ -69,23 +69,27 @@ runs:
             - type: context
               elements:
                 - type: mrkdwn
-                  text: "*Repository:* `${{ github.repository }}` • *Branch:* `${{ github.ref_name }}`"
+                  text: "*Repository:* `${{ github.repository }}` • *Branch:* `${{ github.ref_name }}` • *Run by:* @${{ github.actor }}"
             - type: divider
-            - type: section
-              fields:
-                - type: mrkdwn
-                  text: "*Status*\n${{ inputs.status }}"
-                - type: mrkdwn
-                  text: "*Run by*\n@${{ github.actor }}"
-            - type: section
-              fields:
-                - type: mrkdwn
-                  text: "*Environment*\n${{ inputs.env }}"
-                - type: mrkdwn
-                  text: "*Tag*\n${{ inputs.tag }}"
             - type: section
               fields:
                 - type: mrkdwn
                   text: ":copyright: <https://github.com/${{ github.repository }}/commit/${{ github.sha }}|View Commit>"
                 - type: mrkdwn
                   text: ":page_facing_up: <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Workflow Logs>"
+            - type: section
+              fields:
+                - type: mrkdwn
+                  text: "*Status*\n${{ inputs.status }}"
+            - type: section
+              fields:
+                - type: mrkdwn
+                  text: "*Tag*\n${{ inputs.tag }}"
+            - type: section
+              fields:
+                - type: mrkdwn
+                  text: "*Environment*\n${{ inputs.env }}"
+            - type: section
+              fields:
+                - type: mrkdwn
+                  text: "*Run by*\n@${{ github.actor }}"
