@@ -14,7 +14,7 @@ jobs:
 
       - name: Send Slack Message 1
         id: send_slack_message_1
-        uses: actions/slack/send-message
+        uses: ./actions/slack/send-message
         with:
           channel: ${{ secrets.SLACK_CHANNEL_ID }}
           text: 'Hello world! This is a test message from _GitHub Actions_.'
@@ -25,14 +25,14 @@ jobs:
 
       - name: Send Slack Message 2
         id: send_slack_message_2
-        uses: actions/slack/send-message
+        uses: ./actions/slack/send-message
         with:
           channel: ${{ secrets.SLACK_CHANNEL_ID }}
           text: 'Hello world! This is *another* test message from _GitHub Actions_.'
           token: ${{ secrets.SLACK_BOT_TOKEN }}
 
       - name: Update Slack Message 1
-        uses: actions/slack/update-message
+        uses: ./actions/slack/update-message
         with:
           channel: ${{ secrets.SLACK_CHANNEL_ID }}
           text: 'Hello world! This is *another* test message from _GitHub Actions_.'
@@ -41,7 +41,7 @@ jobs:
 
       - name: Send Workflow Status Message 1
         id: send_workflow_status_message_1
-        uses: actions/slack/send-workflow-status-message
+        uses: ./actions/slack/send-workflow-status-message
         with:
           channel: ${{ secrets.SLACK_CHANNEL_ID }}
           status: 'ongoing'
@@ -50,14 +50,14 @@ jobs:
           env: 'prod'
 
       - name: Send Slack Message 3
-        uses: actions/slack/send-message
+        uses: ./actions/slack/send-message
         with:
           channel: ${{ secrets.SLACK_CHANNEL_ID }}
           text: 'Hello world! This is *the third* test message from _GitHub Actions_.'
           token: ${{ secrets.SLACK_BOT_TOKEN }}
 
       - name: Update Workflow Status Message 1
-        uses: actions/slack/update-workflow-status-message
+        uses: ./actions/slack/update-workflow-status-message
         with:
           channel: ${{ secrets.SLACK_CHANNEL_ID }}
           status: 'success'
@@ -65,7 +65,7 @@ jobs:
           ts: ${{ steps.send_workflow_status_message_1.outputs.ts }}
 
       - name: Send Slack Message 4
-        uses: actions/slack/send-message
+        uses: ./actions/slack/send-message
         with:
           channel: ${{ secrets.SLACK_CHANNEL_ID }}
           text: 'Finished'
