@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Send Slack message with blocks - success status
-        uses: ./actions/slack/send-message-with-blocks
+        uses: ./actions/slack/send-workflow-status
         with:
           token: ${{ secrets.SLACK_BOT_TOKEN }}
           channel: ${{ secrets.SLACK_CHANNEL_ID }}
@@ -23,7 +23,7 @@ jobs:
           status: 'success'
 
       - name: Send Slack message with blocks - ongoing status
-        uses: ./actions/slack/send-message-with-blocks
+        uses: ./actions/slack/send-workflow-status
         with:
           token: ${{ secrets.SLACK_BOT_TOKEN }}
           channel: ${{ secrets.SLACK_CHANNEL_ID }}
@@ -33,7 +33,7 @@ jobs:
           status: 'ongoing'
 
       - name: Send Slack message with blocks - failed status
-        uses: ./actions/slack/send-message-with-blocks
+        uses: ./actions/slack/send-workflow-status
         with:
           token: ${{ secrets.SLACK_BOT_TOKEN }}
           channel: ${{ secrets.SLACK_CHANNEL_ID }}
