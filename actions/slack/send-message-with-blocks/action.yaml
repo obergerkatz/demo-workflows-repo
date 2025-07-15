@@ -13,7 +13,7 @@ inputs:
     required: true
   env:
     description: "Environment name (e.g. qa, prod)"
-    required: true
+    required: false
     default: "unknown"
   tag:
     description: "Tag or version of the deployment"
