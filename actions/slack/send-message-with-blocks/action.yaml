@@ -78,7 +78,7 @@ runs:
             - type: section
               fields:
                 - type: mrkdwn
-                  text: "*Status*\n${{ steps.emoji.outputs.emoji }} ${{ job.status }}"
+                  text: "*Status*\n${{ steps.emoji.outputs.emoji }} ${{ inputs.status }}"
                 - type: mrkdwn
                   text: "*Triggered by*\n@${{ github.actor }}"
             - type: section
