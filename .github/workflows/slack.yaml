@@ -50,6 +50,7 @@ jobs:
           env: 'prod'
 
       - name: Send Slack Message 3
+        id: send_slack_message_3
         uses: ./actions/slack/send-message
         with:
           channel: ${{ secrets.SLACK_CHANNEL_ID }}
@@ -74,3 +75,13 @@ jobs:
           text: 'Finished'
           token: ${{ secrets.SLACK_BOT_TOKEN }}
           thread_ts: ${{ steps.send_workflow_status_message_1.outputs.ts }}
+
+      - name: Send Workflow Status Message 5
+        uses: ./actions/slack/send-workflow-status-message
+        with:
+          channel: ${{ secrets.SLACK_CHANNEL_ID }}
+          status: 'ongoing'
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          tag: 'test-${{ github.run_number }}-${{ github.sha }}'
+          env: 'prod'
+          thread_ts: ${{ steps.send_slack_message_3.outputs.ts }}
