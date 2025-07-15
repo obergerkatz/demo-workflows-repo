@@ -12,52 +12,62 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-#      - name: Send Slack message with blocks - success status
-#        uses: ./actions/slack/send-workflow-status
-#        with:
-#          token: ${{ secrets.SLACK_BOT_TOKEN }}
-#          channel: ${{ secrets.SLACK_CHANNEL_ID }}
-#          text: "Deployment to prod completed successfully!"
-#          tag: 'berger-${{ github.sha }}'
-#          env: 'qa'
-#          status: 'success'
-#
-#      - name: Send Slack message with blocks - ongoing status
-#        uses: ./actions/slack/send-workflow-status
-#        with:
-#          token: ${{ secrets.SLACK_BOT_TOKEN }}
-#          channel: ${{ secrets.SLACK_CHANNEL_ID }}
-#          text: "Deployment to prod completed successfully!"
-#          tag: 'berger-${{ github.sha }}'
-#          env: 'qa'
-#          status: 'ongoing'
-
-      - name: Send Slack message with blocks - failed status
-        id: send_failed_status
-        uses: ./actions/slack/send-workflow-status
+      - name: Send Slack Message 1
+        id: send_slack_message_1
+        uses: actions/slack/send-message
         with:
-          token: ${{ secrets.SLACK_BOT_TOKEN }}
           channel: ${{ secrets.SLACK_CHANNEL_ID }}
-          text: "Deployment to prod completed successfully!"
-          tag: 'berger-${{ github.sha }}'
-          env: 'prod'
-          status: 'ongoing'
+          text: 'Hello world! This is a test message from _GitHub Actions_.'
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
 
-      - name: sleep 5 seconds
+      - name: Sleep for 5 seconds
         run: sleep 5
 
-      - name: Debug inputs
-        run: |
-          echo "Channel: ${{ secrets.SLACK_CHANNEL_ID }}"
-          echo "Thread TS: ${{ steps.send_failed_status.outputs.ts }}"
-
-      - name: Update Slack message with blocks - success status
-        uses: ./actions/slack/update-workflow-status
+      - name: Send Slack Message 2
+        id: send_slack_message_2
+        uses: actions/slack/send-message
         with:
-          token: ${{ secrets.SLACK_BOT_TOKEN }}
           channel: ${{ secrets.SLACK_CHANNEL_ID }}
-          text: "Deployment to prod completed successfully!"
-          tag: 'berger-${{ github.sha }}'
+          text: 'Hello world! This is *another* test message from _GitHub Actions_.'
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+
+      - name: Update Slack Message 1
+        uses: actions/slack/update-message
+        with:
+          channel: ${{ secrets.SLACK_CHANNEL_ID }}
+          text: 'Hello world! This is *another* test message from _GitHub Actions_.'
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          ts: ${{ steps.send_slack_message_1.outputs.ts }}
+
+      - name: Send Workflow Status Message 1
+        id: send_workflow_status_message_1
+        uses: actions/slack/send-workflow-status-message
+        with:
+          channel: ${{ secrets.SLACK_CHANNEL_ID }}
+          status: 'ongoing'
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          tag: 'test-${{ github.run_number }}-${{ github.sha }}'
           env: 'prod'
+
+      - name: Send Slack Message 3
+        uses: actions/slack/send-message
+        with:
+          channel: ${{ secrets.SLACK_CHANNEL_ID }}
+          text: 'Hello world! This is *the third* test message from _GitHub Actions_.'
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+
+      - name: Update Workflow Status Message 1
+        uses: actions/slack/update-workflow-status-message
+        with:
+          channel: ${{ secrets.SLACK_CHANNEL_ID }}
           status: 'success'
-          thread_ts: ${{ steps.send_failed_status.outputs.ts }}
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          ts: ${{ steps.send_workflow_status_message_1.outputs.ts }}
+
+      - name: Send Slack Message 4
+        uses: actions/slack/send-message
+        with:
+          channel: ${{ secrets.SLACK_CHANNEL_ID }}
+          text: 'Finished'
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          thread_ts: ${{ steps.send_workflow_status_message_1.outputs.ts }}

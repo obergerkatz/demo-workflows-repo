@@ -1,0 +1,35 @@
+name: "Get Workflow Status Emoji"
+description: "Gets a Slack emoji based on GitHub Actions workflow status (success, failed, ongoing)"
+
+inputs:
+  status:
+    description: "Workflow status (success, failed, ongoing)"
+    required: true
+
+outputs:
+  emoji:
+    description: "Slack-compatible emoji for the status"
+    value: "${{ steps.get_status_emoji.outputs.emoji }}"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Get workflow status emoji
+      id: get_status_emoji
+      shell: bash
+      run: |
+        case "${{ inputs.status }}" in
+          success)
+            echo "emoji=:white_check_mark:" >> "$GITHUB_OUTPUT"
+            ;;
+          failed)
+            echo "emoji=:x:" >> "$GITHUB_OUTPUT"
+            ;;
+          ongoing)
+            echo "emoji=:arrows_counterclockwise:" >> "$GITHUB_OUTPUT"
+            ;;
+          *)
+            echo "Error: Unknown status '${{ inputs.status }}'. Expected one of: success, failed, ongoing"
+            exit 1
+            ;;
+        esac

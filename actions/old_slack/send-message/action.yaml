@@ -9,17 +9,17 @@ inputs:
     description: "Slack channel ID to post to"
     required: true
   text:
-    description: "Plain text for the message (markdown is supported)"
+    description: "Fallback plain text for the message"
     required: true
   thread_ts:
-    description: "Timestamp of the message to post in a thread"
+    description: "Timestamp of the parent message for threaded replies"
     required: false
     default: ""
 
 outputs:
   ts:
     description: "Timestamp of the posted Slack message"
-    value: ${{ steps.send_slack_message.outputs.ts }}
+    value: "${{ steps.send_slack_message.outputs.ts }}"
 
 runs:
   using: "composite"
@@ -28,9 +28,10 @@ runs:
       id: send_slack_message
       uses: slackapi/slack-github-action@v2.1.1
       with:
-        errors: "true"
         method: chat.postMessage
         token: ${{ inputs.token }}
         payload: |
           channel: ${{ inputs.channel }}
           text: ${{ inputs.text }}
+          thread_ts: "${{ inputs.thread_ts }}"
+          

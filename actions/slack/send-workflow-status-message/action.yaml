@@ -1,0 +1,79 @@
+name: "Send Workflow Status Message"
+description: "Sends a Slack message with GitHub Actions workflow status and metadata using Slack's Block Kit and outputs the message timestamp"
+
+inputs:
+  token:
+    description: "Slack Bot OAuth token with `chat:write` permission"
+    required: true
+  channel:
+    description: "Slack channel ID to post to"
+    required: true
+  status:
+    description: "Workflow status (success, failed, ongoing)"
+    required: true
+  thread_ts:
+    description: "Timestamp of the message to post in a thread"
+    required: false
+    default: ""
+  env:
+    description: "Environment name (e.g. qa, prod)"
+    required: false
+    default: "unknown"
+  tag:
+    description: "Tag or version of the deployment"
+    required: false
+    default: "unknown"
+
+outputs:
+  ts:
+    description: "Timestamp of the posted Slack message"
+    value: "${{ steps.send_workflow_status.outputs.ts }}"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Get status emoji
+      id: get_status_emoji
+      uses: ./actions/slack/get-workflow-status-emoji
+      with:
+        status: ${{ inputs.status }}
+
+    - name: Send workflow status message
+      id: send_workflow_status
+      uses: slackapi/slack-github-action@v2.1.1
+      with:
+        method: chat.postMessage
+        token: ${{ inputs.token }}
+        payload: |
+          channel: ${{ inputs.channel }}
+          thread_ts: ${{ inputs.thread_ts }}
+          blocks:
+            - type: header
+              text:
+                type: plain_text
+                text: "${{ steps.get_status_emoji.outputs.emoji }} ${{ github.workflow }} #${{ github.run_number }}"
+                emoji: true
+            - type: context
+              elements:
+                - type: mrkdwn
+                  text: "*Repository:* `${{ github.repository }}` • *Branch:* `${{ github.ref_name }}` • *Run by:* `@${{ github.actor }}`"
+            - type: divider
+            - type: section
+              fields:
+                - type: mrkdwn
+                  text: "*Status*\n${{ inputs.status }}"
+                - type: mrkdwn
+                  text: "*Duration*\nTBT"
+            - type: section
+              fields:
+                - type: mrkdwn
+                  text: "*Environment*\n${{ inputs.env }}"
+                - type: mrkdwn
+                  text: "*Tag*\n${{ inputs.tag }}"
+            - type: divider
+            - type: section
+              fields:
+                - type: mrkdwn
+                  text: ":copyright: <https://github.com/${{ github.repository }}/commit/${{ github.sha }}|View Commit>"
+                - type: mrkdwn
+                  text: ":page_facing_up: <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Workflow Logs>"
