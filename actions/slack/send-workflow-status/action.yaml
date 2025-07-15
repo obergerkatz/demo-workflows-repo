@@ -1,5 +1,5 @@
-name: "Send Slack Message"
-description: "Sends a Slack message using Slack's Block Kit and outputs the message timestamp (ts)."
+name: "Send Workflow Status"
+description: "Sends a Slack message with GitHub Actions workflow status and metadata using Slack's Block Kit and outputs the message timestamp"
 
 inputs:
   token:
@@ -31,7 +31,7 @@ inputs:
 outputs:
   ts:
     description: "Timestamp of the posted Slack message"
-    value: "${{ steps.send_slack_message.outputs.ts }}"
+    value: "${{ steps.send_workflow_status.outputs.ts }}"
 
 runs:
   using: "composite"
@@ -50,8 +50,8 @@ runs:
             ;;
         esac
 
-    - name: Send Slack message
-      id: send_slack_message
+    - name: Send workflow status
+      id: send_workflow_status
       uses: slackapi/slack-github-action@v2.1.1
       with:
         method: chat.postMessage
@@ -64,7 +64,7 @@ runs:
             - type: header
               text:
                 type: plain_text
-                text: "${{ steps.emoji.outputs.emoji }} ${{ github.workflow }} #${{ github.run_number }}"
+                text: "${{ github.workflow }} #${{ github.run_number }}"
                 emoji: true
             - type: context
               elements:
