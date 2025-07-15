@@ -47,6 +47,7 @@ runs:
     - name: Update workflow status
       uses: slackapi/slack-github-action@v2.1.1
       with:
+        errors: 'true'
         method: chat.update
         token: ${{ inputs.token }}
         payload: |
