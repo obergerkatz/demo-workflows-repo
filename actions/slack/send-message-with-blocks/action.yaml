@@ -8,6 +8,15 @@ inputs:
   channel:
     description: "Slack channel ID to post to"
     required: true
+  env:
+    description: "Environment name (e.g. qa, prod)"
+    required: true
+  tag:
+    description: "Tag or version of the deployment"
+    required: true
+  status:
+    description: "Status of the deployment"
+    required: true
   text:
     description: "Fallback plain text for the message"
     required: false
@@ -16,12 +25,6 @@ inputs:
     description: "Timestamp of the parent message for threaded replies"
     required: false
     default: ""
-  env:
-    description: "Environment name (e.g. qa, prod)"
-    required: true
-  tag:
-    description: "Tag or version of the deployment"
-    required: true
 
 outputs:
   ts:
@@ -31,6 +34,15 @@ outputs:
 runs:
   using: "composite"
   steps:
+    - id: emoji
+      shell: bash
+      run: |
+        case "${{ inputs.status }}" in
+          success) echo "emoji=:white_check_mark:" >> "$GITHUB_OUTPUT" ;;
+          failed)  echo "emoji=:x:" >> "$GITHUB_OUTPUT" ;;
+          *)       echo "emoji=:arrows_counterclockwise:" >> "$GITHUB_OUTPUT" ;;
+        esac
+
     - name: Send Slack message
       id: send_slack_message
       uses: slackapi/slack-github-action@v2.1.1
@@ -45,7 +57,7 @@ runs:
             - type: header
               text:
                 type: plain_text
-                text: ":arrows_counterclockwise: ${{ github.workflow }}"
+                text: "${{ steps.emoji.outputs.emoji }} ${{ github.workflow }}"
                 emoji: true
             - type: context
               elements:
@@ -61,7 +73,7 @@ runs:
             - type: section
               fields:
                 - type: mrkdwn
-                  text: "*Status*\n${{ job.status }}"
+                  text: "*Status*\n${{ steps.emoji.outputs.emoji }} ${{ job.status }}"
                 - type: mrkdwn
                   text: "*Triggered by*\n@${{ github.actor }}"
             - type: section
