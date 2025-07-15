@@ -67,6 +67,8 @@ jobs:
           status: 'success'
           token: ${{ secrets.SLACK_BOT_TOKEN }}
           ts: ${{ steps.send_workflow_status_message_1.outputs.ts }}
+          tag: 'test-${{ github.run_number }}-${{ github.sha }}'
+          env: 'prod'
 
       - name: Send Slack Message 4
         uses: ./actions/slack/send-message
