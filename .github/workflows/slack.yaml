@@ -33,6 +33,7 @@ jobs:
           status: 'ongoing'
 
       - name: Send Slack message with blocks - failed status
+        id: send_failed_status
         uses: ./actions/slack/send-workflow-status
         with:
           token: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -41,3 +42,14 @@ jobs:
           tag: 'berger-${{ github.sha }}'
           env: 'qa'
           status: 'failed'
+
+      - name: Send Slack message with blocks - failed status
+        uses: ./actions/slack/update-workflow-status
+        with:
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          channel: ${{ secrets.SLACK_CHANNEL_ID }}
+          text: "Deployment to prod completed successfully!"
+          tag: 'berger-${{ github.sha }}'
+          env: 'qa'
+          status: 'success'
+          thread_ts: ${{ steps.send_failed_status.outputs.ts }}
