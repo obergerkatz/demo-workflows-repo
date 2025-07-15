@@ -59,6 +59,8 @@ runs:
               elements:
                 - type: mrkdwn
                   text: "*Repository:* `${{ github.repository }}` • *Branch:* `${{ github.ref_name }}` • *Run by:* `@${{ github.actor }}`"
+                - type: mrkdwn
+                  text: "*Environment:* `${{ inputs.env }}` • *Tag:* `${{ inputs.tag }}`"
             - type: divider
             - type: section
               fields:
