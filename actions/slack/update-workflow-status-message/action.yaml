@@ -51,23 +51,23 @@ runs:
             - type: context
               elements:
                 - type: mrkdwn
-                  text: "*Repository:* `${{ github.repository }}`"
+                  text: "• *Repository:* `${{ github.repository }}`"
             - type: context
               elements:
                 - type: mrkdwn
-                  text: "*Branch:* `${{ github.ref_name }}`"
+                  text: "• *Branch:* `${{ github.ref_name }}`"
             - type: context
               elements:
                 - type: mrkdwn
-                  text: "*Environment:* `${{ inputs.env }}`"
+                  text: "• *Environment:* `${{ inputs.env }}`"
             - type: context
               elements:
                 - type: mrkdwn
-                  text: "*Tag:* `${{ inputs.tag }}`"
+                  text: "• *Tag:* `${{ inputs.tag }}`"
             - type: context
               elements:
                 - type: mrkdwn
-                  text: "*Run by:* `@${{ github.actor }}`"
+                  text: "• *Run by:* `@${{ github.actor }}`"
             - type: divider
             - type: section
               fields:
