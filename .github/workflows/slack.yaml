@@ -18,7 +18,7 @@ jobs:
           token: ${{ secrets.SLACK_BOT_TOKEN }}
           channel: ${{ secrets.SLACK_CHANNEL_ID }}
           text: "Deployment to prod completed successfully!"
-          tag: 'berger'
+          tag: 'berger-${{ github.sha }}'
           env: 'qa'
           status: 'success'
 
@@ -28,7 +28,7 @@ jobs:
           token: ${{ secrets.SLACK_BOT_TOKEN }}
           channel: ${{ secrets.SLACK_CHANNEL_ID }}
           text: "Deployment to prod completed successfully!"
-          tag: 'berger'
+          tag: 'berger-${{ github.sha }}'
           env: 'qa'
           status: 'ongoing'
 
@@ -38,6 +38,6 @@ jobs:
           token: ${{ secrets.SLACK_BOT_TOKEN }}
           channel: ${{ secrets.SLACK_CHANNEL_ID }}
           text: "Deployment to prod completed successfully!"
-          tag: 'berger'
+          tag: 'berger-${{ github.sha }}'
           env: 'qa'
           status: 'failed'
