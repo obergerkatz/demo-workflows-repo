@@ -56,6 +56,9 @@ jobs:
           text: 'Hello world! This is *the third* test message from _GitHub Actions_.'
           token: ${{ secrets.SLACK_BOT_TOKEN }}
 
+      - name: Sleep for 5 seconds
+        run: sleep 5
+
       - name: Update Workflow Status Message 1
         uses: ./actions/slack/update-workflow-status-message
         with:
