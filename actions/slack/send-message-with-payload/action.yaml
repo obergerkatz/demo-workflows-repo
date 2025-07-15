@@ -1,0 +1,19 @@
+name: "Send Slack Message"
+description: "Sends a raw Slack JSON payload directly"
+
+inputs:
+  token:
+    required: true
+    description: "Slack Bot Token"
+  payload:
+    required: true
+    description: "Raw Slack JSON payload string"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Send Slack message
+      uses: slackapi/slack-github-action@v2.1.1
+      with:
+        payload: ${{ inputs.payload }}
+        token: ${{ inputs.slack_token }}

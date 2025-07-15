@@ -12,75 +12,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Initiate the deployment launch sequence
-        id: launch_sequence
-        uses: slackapi/slack-github-action@v2.1.1
-        with:
-          method: chat.postMessage
-          token: ${{ secrets.SLACK_BOT_TOKEN }}
-          payload: |
-            channel: ${{ secrets.SLACK_CHANNEL_ID }}
-            text: "Deployment started :eyes:"
-            blocks:
-              - type: header
-                text:
-                  type: plain_text
-                  text: "🚀 Deployment Started"
-              - type: section
-                fields:
-                  - type: mrkdwn
-                    text: "*Repository:*\n${{ github.repository }}"
-                  - type: mrkdwn
-                    text: "*Workflow:*\n${{ github.workflow }}"
-                  - type: mrkdwn
-                    text: "*Run #:*\n${{ github.run_number }}"
-                  - type: mrkdwn
-                    text: "*Actor:*\n${{ github.actor }}"
-                  - type: mrkdwn
-                    text: "*Run URL:*\n<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>"
-
-      - name: Comment in thread 1
-        uses: slackapi/slack-github-action@v2.1.1
-        with:
-          method: chat.postMessage
-          token: ${{ secrets.SLACK_BOT_TOKEN }}
-          payload: |
-            channel: ${{ secrets.SLACK_CHANNEL_ID }}
-            thread_ts: "${{ steps.launch_sequence.outputs.ts }}"
-            text: ✅ *Deployment completed* - <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>
-
-      - name: Comment in thread 2
-        uses: slackapi/slack-github-action@v2.1.1
-        with:
-          method: chat.postMessage
-          token: ${{ secrets.SLACK_BOT_TOKEN }}
-          payload: |
-            channel: ${{ secrets.SLACK_CHANNEL_ID }}
-            thread_ts: "${{ steps.launch_sequence.outputs.ts }}"
-            text: ✅ *Deployment completed* - <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>
-
-      - name: Comment in thread 3
-        uses: slackapi/slack-github-action@v2.1.1
-        with:
-          method: chat.postMessage
-          token: ${{ secrets.SLACK_BOT_TOKEN }}
-          payload: |
-            channel: ${{ secrets.SLACK_CHANNEL_ID }}
-            thread_ts: ""
-            text: ✅ *Deployment completed* - <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>
-
-      - name: Comment in thread 4
-        id: comment_thread_4
-        uses: ./actions/slack/send-message
+      - name: Generate payload
+        id: generate_payload
+        uses: ./actions/slack/generate-payload
         with:
           channel: ${{ secrets.SLACK_CHANNEL_ID }}
-          text: '✅ *Deployment finished* ✅'
+          env: 'prod'
+          tag: 'berger-123'
+
+      - name: Send Slack message with payload
+        id: send_slack_message
+        uses: ./actions/slack/send-message-with-payload
+        with:
+          payload: ${{ steps.generate_payload.outputs.payload }}
           token: ${{ secrets.SLACK_BOT_TOKEN }}
 
-      - name: Comment in thread 5
+      - name: Send Slack message
+        id: send_slack_message_text
         uses: ./actions/slack/send-message
         with:
-          channel: ${{ secrets.SLACK_CHANNEL_ID }}
-          text: '✅ *Deployment finished* ✅'
           token: ${{ secrets.SLACK_BOT_TOKEN }}
-          thread_ts: "${{ steps.comment_thread_4.outputs.ts }}"
+          channel: ${{ secrets.SLACK_CHANNEL_ID }}
+          text: "Deployment to prod completed successfully!"

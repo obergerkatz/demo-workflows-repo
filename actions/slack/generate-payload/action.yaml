@@ -1,0 +1,63 @@
+name: "Generate Payload"
+description: "Generates a Slack message payload from GitHub Actions context"
+
+inputs:
+  channel:
+    required: true
+    description: "Slack channel ID to post the message to"
+  env:
+    required: true
+    description: "Environment name (e.g. qa, prod)"
+  tag:
+    required: true
+    description: "Git tag or release version"
+
+outputs:
+  payload:
+    description: "Raw Slack payload string"
+    value: ${{ steps.generate_payload.outputs.payload }}
+
+runs:
+  using: "composite"
+  steps:
+    - id: generate_payload
+      name: Generate payload
+      shell: bash
+      run: |
+        set -euo pipefail
+        
+        CHANNEL="${{ inputs.channel }}"
+        WORKFLOW_NAME="${{ github.workflow }}"
+        REPO="${{ github.repository }}"
+        TRIGGERED_BY="${{ github.actor }}"
+        RUN_ID="${{ github.run_id }}"
+        SHA="${{ github.sha }}"
+        STATUS="${{ job.status }}"
+        ENV="${{ inputs.env }}"
+        TAG="${{ inputs.tag }}"
+        
+        LINK_COMMIT="https://github.com/${REPO}/commit/${SHA}"
+        LINK_RUN="https://github.com/${REPO}/actions/runs/${RUN_ID}"
+
+        # Pick emoji/icon for status
+        case "${STATUS}" in
+          success) EMOJI=":white_check_mark:" ;;
+          failure) EMOJI=":x:" ;;
+          *)       EMOJI=":arrows_counterclockwise:" ;;
+        esac
+
+        PAYLOAD=$(jq -n \
+          --arg channel "$CHANNEL" \
+          --arg emoji "$EMOJI" \
+          --arg name "$WORKFLOW_NAME" \
+          --arg repo "$REPO" \
+          --arg env "$ENV" \
+          --arg tag "$TAG" \
+          --arg status "$STATUS" \
+          --arg commit_url "$LINK_COMMIT" \
+          --arg run_url "$LINK_RUN" \
+          --arg user "$TRIGGERED_BY" \
+          -f "${{ github.action_path }}/template.jq")
+
+        echo "payload=$PAYLOAD" >> $GITHUB_OUTPUT
+
