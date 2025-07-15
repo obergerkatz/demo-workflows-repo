@@ -1,9 +1,9 @@
 {
-  channel: "${{ $channel }}",
+  channel: $channel,
   blocks: [
     {
       type: "header",
-      text: { type: "plain_text", text: "\($emoji) $name", emoji: true }
+      text: { type: "plain_text", text: "\($emoji) \($name)", emoji: true }
     },
     {
       type: "context",
@@ -15,14 +15,14 @@
     {
       type: "section",
       fields: [
-        { type: "mrkdwn", text: "*Triggered by*\n@\($user)" }
+        { type: "mrkdwn", text: "*Triggered by*\n@\($user)" },
         { type: "mrkdwn", text: "*Tag*\n\($tag)" }
       ]
     },
     {
       type: "section",
       fields: [
-        { type: "mrkdwn", text: "*Status*\n\($emoji) \($status | ascii_upcase)" },
+        { type: "mrkdwn", text: "*Status*\n\($emoji) \($status | ascii_upcase)" }
       ]
     },
     {
