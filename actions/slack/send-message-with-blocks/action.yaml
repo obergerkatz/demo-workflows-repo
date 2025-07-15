@@ -64,19 +64,19 @@ runs:
             - type: header
               text:
                 type: plain_text
-                text: "${{ steps.emoji.outputs.emoji }} ${{ github.workflow }}"
+                text: "${{ steps.emoji.outputs.emoji }} ${{ github.workflow }} #${{ github.run_number }}"
                 emoji: true
             - type: context
               elements:
                 - type: mrkdwn
-                  text: "*Repository:* `${{ github.repository }}` • *Triggered by:* `${{ github.actor }}`"
+                  text: "*Repository:* `${{ github.repository }}` • *Branch:* `${{ github.ref_name }}`"
             - type: divider
             - type: section
               fields:
                 - type: mrkdwn
                   text: "*Status*\n${{ inputs.status }}"
                 - type: mrkdwn
-                  text: "**Run ID**\n@${{ github.run_number }}"
+                  text: "*Run by:*\n@${{ github.actor }}"
             - type: section
               fields:
                 - type: mrkdwn
