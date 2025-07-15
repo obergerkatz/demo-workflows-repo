@@ -43,7 +43,12 @@ jobs:
           env: 'qa'
           status: 'failed'
 
-      - name: Send Slack message with blocks - failed status
+      - name: Debug inputs
+        run: |
+          echo "Channel: ${{ secrets.SLACK_CHANNEL_ID }}"
+          echo "Thread TS: ${{ steps.send_failed_status.outputs.ts }}"
+
+      - name: Update Slack message with blocks - success status
         uses: ./actions/slack/update-workflow-status
         with:
           token: ${{ secrets.SLACK_BOT_TOKEN }}
