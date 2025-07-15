@@ -47,8 +47,8 @@ runs:
         token: ${{ inputs.token }}
         payload: |
           channel: ${{ inputs.channel }}
-          thread_ts: "${{ inputs.thread_ts }}"
           text: "${{ steps.get_status_emoji.outputs.emoji }} ${{ github.workflow }} #${{ github.run_number }}" # The `text` is used in places where the content cannot be rendered
+          thread_ts: "${{ inputs.thread_ts }}"
           blocks:
             - type: header
               text:
