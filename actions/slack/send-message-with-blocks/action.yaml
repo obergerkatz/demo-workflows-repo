@@ -50,26 +50,28 @@ runs:
             - type: context
               elements:
                 - type: mrkdwn
-                  text: "*Repository:* `${{ github.repository }}` • *Environment:* `${{ inputs.env }}`"
+                  text: "*Repository:* `${{ github.repository }}`"
             - type: divider
             - type: section
               fields:
                 - type: mrkdwn
-                  text: "*Triggered by*\n@${{ github.actor }}"
+                  text: "*Environment*\n${{ inputs.env }}"
                 - type: mrkdwn
                   text: "*Tag*\n${{ inputs.tag }}"
             - type: section
               fields:
                 - type: mrkdwn
                   text: "*Status*\n${{ job.status }}"
+                - type: mrkdwn
+                  text: "*Triggered by*\n@${{ github.actor }}"
             - type: section
               fields:
                 - type: mrkdwn
-                  text: "<https://github.com/${{ github.repository }}/commit/${{ github.sha }}|View Commit>"
+                  text: ":copyright: <https://github.com/${{ github.repository }}/commit/${{ github.sha }}|View Commit>"
                 - type: mrkdwn
-                  text: "<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Workflow Logs>"
+                  text: "::page_facing_up:: <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Workflow Logs>"
             - type: divider
             - type: context
               elements:
                 - type: mrkdwn
-                  text: ":robot_face: Need help? Ask in `/ask-devops-il`"
+                  text: "Need help? Ask in `/ask-devops-il` :robot_face:"
