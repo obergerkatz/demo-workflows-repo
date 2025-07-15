@@ -12,25 +12,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Send Slack message with blocks - success status
-        uses: ./actions/slack/send-workflow-status
-        with:
-          token: ${{ secrets.SLACK_BOT_TOKEN }}
-          channel: ${{ secrets.SLACK_CHANNEL_ID }}
-          text: "Deployment to prod completed successfully!"
-          tag: 'berger-${{ github.sha }}'
-          env: 'qa'
-          status: 'success'
-
-      - name: Send Slack message with blocks - ongoing status
-        uses: ./actions/slack/send-workflow-status
-        with:
-          token: ${{ secrets.SLACK_BOT_TOKEN }}
-          channel: ${{ secrets.SLACK_CHANNEL_ID }}
-          text: "Deployment to prod completed successfully!"
-          tag: 'berger-${{ github.sha }}'
-          env: 'qa'
-          status: 'ongoing'
+#      - name: Send Slack message with blocks - success status
+#        uses: ./actions/slack/send-workflow-status
+#        with:
+#          token: ${{ secrets.SLACK_BOT_TOKEN }}
+#          channel: ${{ secrets.SLACK_CHANNEL_ID }}
+#          text: "Deployment to prod completed successfully!"
+#          tag: 'berger-${{ github.sha }}'
+#          env: 'qa'
+#          status: 'success'
+#
+#      - name: Send Slack message with blocks - ongoing status
+#        uses: ./actions/slack/send-workflow-status
+#        with:
+#          token: ${{ secrets.SLACK_BOT_TOKEN }}
+#          channel: ${{ secrets.SLACK_CHANNEL_ID }}
+#          text: "Deployment to prod completed successfully!"
+#          tag: 'berger-${{ github.sha }}'
+#          env: 'qa'
+#          status: 'ongoing'
 
       - name: Send Slack message with blocks - failed status
         id: send_failed_status
@@ -40,8 +40,8 @@ jobs:
           channel: ${{ secrets.SLACK_CHANNEL_ID }}
           text: "Deployment to prod completed successfully!"
           tag: 'berger-${{ github.sha }}'
-          env: 'qa'
-          status: 'failed'
+          env: 'prod'
+          status: 'ongoing'
 
       - name: Debug inputs
         run: |
@@ -55,6 +55,6 @@ jobs:
           channel: ${{ secrets.SLACK_CHANNEL_ID }}
           text: "Deployment to prod completed successfully!"
           tag: 'berger-${{ github.sha }}'
-          env: 'qa'
+          env: 'prod'
           status: 'success'
           thread_ts: ${{ steps.send_failed_status.outputs.ts }}
