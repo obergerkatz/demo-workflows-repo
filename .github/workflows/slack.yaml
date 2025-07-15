@@ -12,8 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Send Slack message with blocks
-        id: send_slack_message_text
+      - name: Send Slack message with blocks - success status
         uses: ./actions/slack/send-message-with-blocks
         with:
           token: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -23,8 +22,7 @@ jobs:
           env: 'qa'
           status: 'success'
 
-      - name: Send Slack message with blocks
-        id: send_slack_message_text
+      - name: Send Slack message with blocks - ongoing status
         uses: ./actions/slack/send-message-with-blocks
         with:
           token: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -34,8 +32,7 @@ jobs:
           env: 'qa'
           status: 'ongoing'
 
-      - name: Send Slack message with blocks
-        id: send_slack_message_text
+      - name: Send Slack message with blocks - failed status
         uses: ./actions/slack/send-message-with-blocks
         with:
           token: ${{ secrets.SLACK_BOT_TOKEN }}
