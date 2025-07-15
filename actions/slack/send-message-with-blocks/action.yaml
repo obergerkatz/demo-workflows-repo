@@ -8,15 +8,17 @@ inputs:
   channel:
     description: "Slack channel ID to post to"
     required: true
-  env:
-    description: "Environment name (e.g. qa, prod)"
-    required: true
-  tag:
-    description: "Tag or version of the deployment"
-    required: true
   status:
     description: "Status of the deployment"
     required: true
+  env:
+    description: "Environment name (e.g. qa, prod)"
+    required: true
+    default: "unknown"
+  tag:
+    description: "Tag or version of the deployment"
+    required: false
+    default: "unknown"
   text:
     description: "Fallback plain text for the message"
     required: false
@@ -72,15 +74,15 @@ runs:
             - type: section
               fields:
                 - type: mrkdwn
-                  text: "*Environment*\n${{ inputs.env }}"
-                - type: mrkdwn
-                  text: "*Tag*\n${{ inputs.tag }}"
-            - type: section
-              fields:
-                - type: mrkdwn
                   text: "*Status*\n${{ inputs.status }}"
                 - type: mrkdwn
                   text: "*Triggered by*\n@${{ github.actor }}"
+            - type: section
+              fields:
+                - type: mrkdwn
+                  text: "*Environment*\n${{ inputs.env }}"
+                - type: mrkdwn
+                  text: "*Tag*\n${{ inputs.tag }}"
             - type: section
               fields:
                 - type: mrkdwn
