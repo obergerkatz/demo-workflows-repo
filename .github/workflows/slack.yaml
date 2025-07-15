@@ -35,7 +35,7 @@ jobs:
         uses: ./actions/slack/update-message
         with:
           channel: ${{ secrets.SLACK_CHANNEL_ID }}
-          text: 'Hello world! This is *another* test message from _GitHub Actions_.'
+          text: 'This is an updated message from _GitHub Actions_.'
           token: ${{ secrets.SLACK_BOT_TOKEN }}
           ts: ${{ steps.send_slack_message_1.outputs.ts }}
 
