@@ -69,7 +69,7 @@ runs:
             - type: context
               elements:
                 - type: mrkdwn
-                  text: "*Repository:* `${{ github.repository }}` • *Repository:* `${{ github.actor }}`"
+                  text: "*Repository:* `${{ github.repository }}` • *Triggered by:* `${{ github.actor }}`"
             - type: divider
             - type: section
               fields:
