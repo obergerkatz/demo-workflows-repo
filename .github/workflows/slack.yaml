@@ -43,6 +43,9 @@ jobs:
           env: 'prod'
           status: 'ongoing'
 
+      - name: sleep 5 seconds
+        run: sleep 5
+
       - name: Debug inputs
         run: |
           echo "Channel: ${{ secrets.SLACK_CHANNEL_ID }}"
