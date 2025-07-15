@@ -19,3 +19,5 @@ jobs:
           token: ${{ secrets.SLACK_BOT_TOKEN }}
           channel: ${{ secrets.SLACK_CHANNEL_ID }}
           text: "Deployment to prod completed successfully!"
+          tag: 'berger'
+          env: 'qa'

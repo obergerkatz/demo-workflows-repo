@@ -16,6 +16,12 @@ inputs:
     description: "Timestamp of the parent message for threaded replies"
     required: false
     default: ""
+  env:
+    description: "Environment name (e.g. qa, prod)"
+    required: true
+  tag:
+    description: "Tag or version of the deployment"
+    required: true
 
 outputs:
   ts:
@@ -39,31 +45,29 @@ runs:
             - type: header
               text:
                 type: plain_text
-                text: ":arrows_counterclockwise: WorkflowName"
+                text: ":arrows_counterclockwise: ${{ github.workflow }}"
                 emoji: true
             - type: context
               elements:
                 - type: mrkdwn
-                  text: "*Repository:* `my-org/my-app` • *Environment:* `qa`"
+                  text: "*Repository:* `${{ github.repository }}` • *Environment:* `${{ inputs.env }}`"
             - type: divider
             - type: section
               fields:
                 - type: mrkdwn
-                  text: "*Triggered by*\n@developer"
+                  text: "*Triggered by*\n@${{ github.actor }}"
                 - type: mrkdwn
-                  text: "*Tag*\ntag-placeholder"
+                  text: "*Tag*\n${{ inputs.tag }}"
             - type: section
               fields:
                 - type: mrkdwn
-                  text: "*Status*\n:arrows_counterclockwise: Ongoing"
-                - type: mrkdwn
-                  text: "*Duration*\n:clock1: 2m 13s"
+                  text: "*Status*\n${{ job.status }}"
             - type: section
               fields:
                 - type: mrkdwn
-                  text: "<https://github.com/...|View Commit>"
+                  text: "<https://github.com/${{ github.repository }}/commit/${{ github.sha }}|View Commit>"
                 - type: mrkdwn
-                  text: "<https://github.com/...|View Workflow Logs>"
+                  text: "<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Workflow Logs>"
             - type: divider
             - type: context
               elements:
