@@ -34,13 +34,18 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - id: emoji
+    - name: Get emoji based on the workflow's status
+      id: emoji
       shell: bash
       run: |
         case "${{ inputs.status }}" in
           success) echo "emoji=:white_check_mark:" >> "$GITHUB_OUTPUT" ;;
           failed)  echo "emoji=:x:" >> "$GITHUB_OUTPUT" ;;
-          *)       echo "emoji=:arrows_counterclockwise:" >> "$GITHUB_OUTPUT" ;;
+          ongoing) echo "emoji=:arrows_counterclockwise:" >> "$GITHUB_OUTPUT" ;;
+          *)
+            echo "Error: Unknown status '${{ inputs.status }}'. Expected one of: success, failed, ongoing."
+            exit 1
+            ;;
         esac
 
     - name: Send Slack message

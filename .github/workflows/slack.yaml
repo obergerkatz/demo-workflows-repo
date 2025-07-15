@@ -21,3 +21,26 @@ jobs:
           text: "Deployment to prod completed successfully!"
           tag: 'berger'
           env: 'qa'
+          status: 'success'
+
+      - name: Send Slack message with blocks
+        id: send_slack_message_text
+        uses: ./actions/slack/send-message-with-blocks
+        with:
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          channel: ${{ secrets.SLACK_CHANNEL_ID }}
+          text: "Deployment to prod completed successfully!"
+          tag: 'berger'
+          env: 'qa'
+          status: 'ongoing'
+
+      - name: Send Slack message with blocks
+        id: send_slack_message_text
+        uses: ./actions/slack/send-message-with-blocks
+        with:
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          channel: ${{ secrets.SLACK_CHANNEL_ID }}
+          text: "Deployment to prod completed successfully!"
+          tag: 'berger'
+          env: 'qa'
+          status: 'failed'
