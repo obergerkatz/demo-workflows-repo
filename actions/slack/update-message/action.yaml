@@ -28,3 +28,4 @@ runs:
         payload: |
           channel: ${{ inputs.channel }}
           text: ${{ inputs.text }}
+          ts: ${{ inputs.ts }}

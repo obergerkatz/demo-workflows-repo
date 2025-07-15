@@ -42,6 +42,7 @@ runs:
       id: send_workflow_status
       uses: slackapi/slack-github-action@v2.1.1
       with:
+        errors: "true"
         method: chat.postMessage
         token: ${{ inputs.token }}
         payload: |
