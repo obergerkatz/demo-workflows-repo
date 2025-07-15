@@ -12,24 +12,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Generate payload
-        id: generate_payload
-        uses: ./actions/slack/generate-payload
-        with:
-          channel: ${{ secrets.SLACK_CHANNEL_ID }}
-          env: 'prod'
-          tag: 'berger-123'
-
-      - name: Send Slack message with payload
-        id: send_slack_message
-        uses: ./actions/slack/send-message-with-payload
-        with:
-          payload: ${{ steps.generate_payload.outputs.payload }}
-          token: ${{ secrets.SLACK_BOT_TOKEN }}
-
-      - name: Send Slack message
+      - name: Send Slack message with blocks
         id: send_slack_message_text
-        uses: ./actions/slack/send-message
+        uses: ./actions/slack/send-message-with-blocks
         with:
           token: ${{ secrets.SLACK_BOT_TOKEN }}
           channel: ${{ secrets.SLACK_CHANNEL_ID }}
