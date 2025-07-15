@@ -22,4 +22,4 @@ runs:
       with:
         method: chat.postMessage
         payload-file-path: /tmp/slack-payload.json
-        token: ${{ inputs.slack_token }}
+        token: ${{ inputs.token }}
