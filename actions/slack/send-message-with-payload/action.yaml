@@ -12,8 +12,13 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Decode and Send
+      run: |
+        echo "${{ steps.slack_payload.outputs.payload }}" | base64 -d > /tmp/slack-payload.json
+      shell: bash
+
     - name: Send Slack message
       uses: slackapi/slack-github-action@v2.1.1
       with:
-        payload: ${{ inputs.payload }}
+        payload-file-path: /tmp/slack-payload.json
         token: ${{ inputs.slack_token }}

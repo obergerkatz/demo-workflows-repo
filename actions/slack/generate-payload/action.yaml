@@ -14,7 +14,7 @@ inputs:
 
 outputs:
   payload:
-    description: "Raw Slack payload string"
+    description: "Base64-encoded Slack payload"
     value: ${{ steps.generate_payload.outputs.payload }}
 
 runs:
@@ -59,5 +59,12 @@ runs:
           --arg user "$TRIGGERED_BY" \
           -f "${{ github.action_path }}/template.jq")
 
-        echo "payload=$PAYLOAD" >> $GITHUB_OUTPUT
+        # Save raw JSON to a file
+        echo "$PAYLOAD" > /tmp/slack-payload.json
+        
+        # Base64 encode to safely output in GitHub Actions
+        ENCODED_PAYLOAD=$(base64 -w 0 /tmp/slack-payload.json)
+        
+        # Write safe key=value output
+        echo "payload=$ENCODED_PAYLOAD" >> "$GITHUB_OUTPUT"
 
