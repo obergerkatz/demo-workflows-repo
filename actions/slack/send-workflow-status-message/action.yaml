@@ -58,16 +58,15 @@ runs:
             - type: context
               elements:
                 - type: mrkdwn
-                  text: "*Repository:* `${{ github.repository }}` • *Branch:* `${{ github.ref_name }}` • *Run by:* `@${{ github.actor }}`"
+                  text: "*Repository:* `${{ github.repository }}`"
                 - type: mrkdwn
-                  text: "*Environment:* `${{ inputs.env }}` • *Tag:* `${{ inputs.tag }}`"
-            - type: divider
-            - type: section
-              fields:
+                  text: "*Branch:* `${{ github.ref_name }}`"
                 - type: mrkdwn
-                  text: "*Environment*\n${{ inputs.env }}"
+                  text: "*Environment:* `${{ inputs.env }}`"
                 - type: mrkdwn
-                  text: "*Tag*\n${{ inputs.tag }}"
+                  text: "*Tag:* `${{ inputs.tag }}`"
+                - type: mrkdwn
+                  text: "*Run by:* `@${{ github.actor }}`"
             - type: divider
             - type: section
               fields:
