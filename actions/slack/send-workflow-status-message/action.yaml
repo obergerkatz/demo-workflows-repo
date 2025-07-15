@@ -63,12 +63,6 @@ runs:
             - type: section
               fields:
                 - type: mrkdwn
-                  text: "*Status*\n${{ inputs.status }}"
-                - type: mrkdwn
-                  text: "*Duration*\nTBT"
-            - type: section
-              fields:
-                - type: mrkdwn
                   text: "*Environment*\n${{ inputs.env }}"
                 - type: mrkdwn
                   text: "*Tag*\n${{ inputs.tag }}"
