@@ -46,7 +46,7 @@ runs:
             - type: header
               text:
                 type: plain_text
-                text: "${{ steps.get_status_emoji.outputs.emoji }} ${{ github.workflow }} #${{ github.run_number }}"
+                text: "${{ github.workflow }} #${{ github.run_number }} ${{ steps.get_status_emoji.outputs.emoji }}"
                 emoji: true
             - type: divider
             - type: context
