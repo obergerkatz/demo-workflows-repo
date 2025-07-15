@@ -76,7 +76,7 @@ runs:
                 - type: mrkdwn
                   text: "*Status*\n${{ inputs.status }}"
                 - type: mrkdwn
-                  text: "*Run by:*\n@${{ github.actor }}"
+                  text: "*Run by*\n@${{ github.actor }}"
             - type: section
               fields:
                 - type: mrkdwn
