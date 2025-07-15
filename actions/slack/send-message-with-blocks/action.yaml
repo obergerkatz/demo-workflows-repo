@@ -69,7 +69,7 @@ runs:
                 - type: mrkdwn
                   text: ":copyright: <https://github.com/${{ github.repository }}/commit/${{ github.sha }}|View Commit>"
                 - type: mrkdwn
-                  text: "::page_facing_up:: <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Workflow Logs>"
+                  text: ":page_facing_up: <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Workflow Logs>"
             - type: divider
             - type: context
               elements:
