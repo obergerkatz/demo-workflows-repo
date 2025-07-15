@@ -41,6 +41,7 @@ runs:
         payload: |
           channel: ${{ inputs.channel }}
           ts: ${{ inputs.ts }}
+          text: "${{ steps.get_status_emoji.outputs.emoji }} ${{ github.workflow }} #${{ github.run_number }}" # The `text` is used in places where the content cannot be rendered
           blocks:
             - type: header
               text:
