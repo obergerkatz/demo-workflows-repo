@@ -22,9 +22,10 @@ jobs:
 
       - name: Send Slack Message - with Blocks
         id: send_slack_message_with_blocks
-        uses: ./actions/slack/send-message
+        uses: ./actions/slack/send-workflow-status-message
         with:
           channel: ${{ secrets.SLACK_CHANNEL_ID }}
           token: ${{ secrets.SLACK_BOT_TOKEN }}
           tag: "tag-${{ github.sha }}"
           env: 'qa'
+          status: 'success'

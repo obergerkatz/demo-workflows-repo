@@ -10,18 +10,9 @@ inputs:
     required: true
   text:
     description: "Plain text for the message (markdown is supported)"
-    required: false
-    default: "${{ github.workflow }} #${{ github.run_number }}" # The `text` is used in places where the content cannot be rendered when using blocks
+    required: true
   thread_ts:
     description: "Timestamp of the message to post in a thread"
-    required: false
-    default: ""
-  env:
-    description: "Environment name (e.g. qa, prod)"
-    required: false
-    default: ""
-  tag:
-    description: "Tag or version of the deployment"
     required: false
     default: ""
 
@@ -33,43 +24,13 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Render Slack blocks template
-      shell: bash
-      run: |
-        cp "${{ github.action_path }}/blocks-template.json" blocks.json
-        
-        sed -i "s|{{ env }}|${{ inputs.env }}|g" blocks.json
-        sed -i "s|{{ tag }}|${{ inputs.tag }}|g" blocks.json
-
-    - name: Write Slack payload to file
-      shell: bash
-      run: |
-        # Preprocess the blocks template
-        cp "${{ github.action_path }}/blocks-template.json" blocks.json
-        sed -i "s|{{ env }}|${{ inputs.env }}|g" blocks.json
-        sed -i "s|{{ tag }}|${{ inputs.tag }}|g" blocks.json
-        
-        # Assemble full payload as JSON
-        jq -n \
-          --arg channel "${{ inputs.channel }}" \
-          --arg text "${{ github.workflow }} #${{ github.run_number }}" \
-          --arg thread_ts "${{ inputs.thread_ts }}" \
-          --slurpfile blocks blocks.json \
-          '{
-            channel: $channel,
-            text: $text,
-            thread_ts: $thread_ts,
-            blocks: $blocks[0]
-          }' > payload.json
-
-
-
     - name: Send Slack message
-      id: send
+      id: send_slack_message
       uses: slackapi/slack-github-action@v2.1.1
       with:
-        errors: 'true'
-        token: ${{ inputs.token }}
         method: chat.postMessage
-        payload-file-path: payload.yml
-        payload-templated: 'true'
+        token: ${{ inputs.token }}
+        payload: |
+          channel: ${{ inputs.channel }}
+          text: ${{ inputs.text }}
+          thread_ts: "${{ inputs.thread_ts }}"
