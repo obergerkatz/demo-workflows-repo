@@ -32,7 +32,7 @@ jobs:
                 "type": "header",
                 "text": {
                   "type": "plain_text",
-                  "text": "${{ github.workflow }} #${{ github.run_number }} ${{ steps.get_status_emoji.outputs.emoji }}",
+                  "text": "${{ github.workflow }} #${{ github.run_number }}",
                   "emoji": true
                 }
               },
