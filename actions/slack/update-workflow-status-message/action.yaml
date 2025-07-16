@@ -50,5 +50,5 @@ runs:
         CHANNEL: ${{ inputs.channel }}
         TAG: ${{ inputs.tag }}
         ENVIRONMENT: ${{ inputs.env }}
-        TS: ${{ inputs.thread_ts }}
+        TS: ${{ inputs.ts }}
         EMOJI: ${{ steps.get_status_emoji.outputs.emoji }}
