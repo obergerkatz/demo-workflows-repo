@@ -32,12 +32,12 @@ runs:
     - name: Validate input
       shell: bash
       run: |
-        echo "${{ inputs.blocks }}" > blocks_input.json
+        printf '%s\n' "${{ inputs.blocks }}" > blocks_input.json
+        BLOCKS_INPUT=$(< blocks_input.json)
+        TEXT_INPUT="${{ inputs.text }}"
         
-        BLOCKS_INPUT=$(cat blocks_input.json)
-        
-        if [[ -z "${{ inputs.text }}" && -z "$BLOCKS_INPUT" ]]; then
-          echo "Error: You must provide at least one of 'text' or 'blocks'."
+        if [[ -z "$TEXT_INPUT" && -z "$BLOCKS_INPUT" ]]; then
+          echo "❌ Error: You must provide at least one of 'text' or 'blocks'."
           exit 1
         fi
 
@@ -49,8 +49,7 @@ runs:
           echo "text: ${{ inputs.text }}" >> payload.yml
         fi
         echo "thread_ts: \"${{ inputs.thread_ts }}\"" >> payload.yml
-
-        # Add blocks only if not empty
+        
         if [[ -s blocks_input.json && $(jq -e 'length > 0' blocks_input.json) ]]; then
           echo "blocks: $(cat blocks_input.json)" >> payload.yml
         fi
