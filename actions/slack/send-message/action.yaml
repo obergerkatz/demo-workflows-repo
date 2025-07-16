@@ -29,17 +29,21 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Validate input
+    - name: Validate inputs
       shell: bash
       run: |
-        printf '%s\n' "${{ inputs.blocks }}" > blocks_input.json
-        BLOCKS_INPUT=$(< blocks_input.json)
+        BLOCKS_INPUT=$(cat <<EOF
+        ${{ inputs.blocks }}
+        EOF
+        )
         TEXT_INPUT="${{ inputs.text }}"
-        
+      
         if [[ -z "$TEXT_INPUT" && -z "$BLOCKS_INPUT" ]]; then
           echo "❌ Error: You must provide at least one of 'text' or 'blocks'."
-          exit 1
+        exit 1
         fi
+        
+        echo "$BLOCKS_INPUT" > blocks_input.json
 
     - name: Write Slack payload to file
       shell: bash
