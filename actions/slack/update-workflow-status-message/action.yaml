@@ -37,41 +37,18 @@ runs:
       with:
         method: chat.update
         token: ${{ inputs.token }}
-        payload: |
-          channel: ${{ inputs.channel }}
-          text: "${{ steps.get_status_emoji.outputs.emoji }} ${{ github.workflow }} #${{ github.run_number }}" # The `text` is used in places where the content cannot be rendered
-          ts: ${{ inputs.ts }}
-          blocks:
-            - type: header
-              text:
-                type: plain_text
-                text: "${{ github.workflow }} #${{ github.run_number }} ${{ steps.get_status_emoji.outputs.emoji }}"
-                emoji: true
-            - type: divider
-            - type: context
-              elements:
-                - type: mrkdwn
-                  text: "• *Repository:* `${{ github.repository }}`"
-            - type: context
-              elements:
-                - type: mrkdwn
-                  text: "• *Branch:* `${{ github.ref_name }}`"
-            - type: context
-              elements:
-                - type: mrkdwn
-                  text: "• *Environment:* `${{ inputs.env }}`"
-            - type: context
-              elements:
-                - type: mrkdwn
-                  text: "• *Tag:* `${{ inputs.tag }}`"
-            - type: context
-              elements:
-                - type: mrkdwn
-                  text: "• *Run by:* `@${{ github.actor }}`"
-            - type: divider
-            - type: section
-              fields:
-                - type: mrkdwn
-                  text: ":copyright: <https://github.com/${{ github.repository }}/commit/${{ github.sha }}|View Commit>"
-                - type: mrkdwn
-                  text: ":page_facing_up: <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Workflow Logs>"
+        payload-file-path: ${{ github.action_path }}/payload.json
+        payload-templated: 'true'
+      env:
+        RUN_NUMBER: ${{ github.run_number }}
+        WORKFLOW: ${{ github.workflow }}
+        REF_NAME: ${{ github.ref_name }}
+        RUN_ID: ${{ github.run_id }}
+        SHA: ${{ github.sha }}
+        REPO: ${{ github.repository }}
+        ACTOR: ${{ github.actor }}
+        CHANNEL: ${{ inputs.channel }}
+        TAG: ${{ inputs.tag }}
+        ENVIRONMENT: ${{ inputs.env }}
+        THREAD_TS: ${{ inputs.thread_ts }}
+        EMOJI: ${{ steps.get_status_emoji.outputs.emoji }}
