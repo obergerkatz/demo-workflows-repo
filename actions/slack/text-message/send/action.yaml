@@ -1,5 +1,5 @@
-name: "Update Slack Message"
-description: "Updates a Slack message using Slack's Block Kit"
+name: "Send Slack Message"
+description: "Sends a Slack message using Slack's Block Kit and outputs the message timestamp (ts)."
 
 inputs:
   token:
@@ -11,20 +11,26 @@ inputs:
   text:
     description: "Plain text for the message (markdown is supported)"
     required: true
+  thread_ts:
+    description: "Timestamp of the parent Slack message to reply to (used for sending a message in a thread)"
+    required: false
+    default: ""
+
+outputs:
   ts:
-    description: "Timestamp of the message to update"
-    required: true
+    description: "Timestamp of the posted Slack message"
+    value: "${{ steps.send_slack_message.outputs.ts }}"
 
 runs:
   using: "composite"
   steps:
-    - name: Update Slack message
+    - name: Send Slack message
       id: send_slack_message
       uses: slackapi/slack-github-action@v2.1.1
       with:
-        method: chat.update
+        method: chat.postMessage
         token: ${{ inputs.token }}
         payload: |
           channel: ${{ inputs.channel }}
           text: ${{ inputs.text }}
-          ts: ${{ inputs.ts }}
+          thread_ts: "${{ inputs.thread_ts }}"

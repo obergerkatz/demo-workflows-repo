@@ -20,7 +20,7 @@
       "elements": [
         {
           "type": "mrkdwn",
-          "text": "• *Repository:* `${{ env.REPO }}`"
+          "text": "• *Repository:* `${{ env.REPOSITORY }}`"
         }
       ]
     },
@@ -68,11 +68,11 @@
       "fields": [
         {
           "type": "mrkdwn",
-          "text": ":copyright: <https://github.com/${{ env.REPO }}/commit/${{ env.SHA }}|View Commit>"
+          "text": ":copyright: <https://github.com/${{ env.REPOSITORY }}/commit/${{ env.SHA }}|View Commit>"
         },
         {
           "type": "mrkdwn",
-          "text": ":page_facing_up: <https://github.com/${{ env.REPO }}/actions/runs/${{ env.RUN_ID }}|View Workflow Logs>"
+          "text": ":page_facing_up: <https://github.com/${{ env.REPOSITORY }}/actions/runs/${{ env.RUN_ID }}|View Workflow Logs>"
         }
       ]
     }

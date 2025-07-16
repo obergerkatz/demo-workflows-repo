@@ -1,0 +1,49 @@
+name: "Update Deployment Status Message"
+description: "Updates a Slack message with deployment status and metadata using GitHub Actions and Slack Block Kit"
+
+inputs:
+  token:
+    description: "Slack Bot OAuth token with `chat:write` permission"
+    required: true
+  channel:
+    description: "Slack channel ID to post to"
+    required: true
+  status:
+    description: "Workflow status (success, failed, ongoing)"
+    required: true
+  emoji:
+    description: "Slack emoji that represents the workflow status (e.g. :white_check_mark: for success, :x: for failure, :arrows_counterclockwise: for ongoing)"
+    required: true
+  env:
+    description: "Environment name (e.g. qa, prod)"
+    required: true
+  tag:
+    description: "Tag or version of the deployment"
+    required: true
+  ts:
+    description: "Timestamp of the Slack message to update (used when modifying an existing message)"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Update deployment status message
+      uses: slackapi/slack-github-action@v2.1.1
+      with:
+        method: chat.update
+        token: ${{ inputs.token }}
+        payload-file-path: ${{ github.action_path }}/../payloads/deployment-status.json
+        payload-templated: 'true'
+      env:
+        ACTOR: ${{ github.actor }}
+        REF_NAME: ${{ github.ref_name }}
+        REPOSITORY: ${{ github.repository }}
+        RUN_ID: ${{ github.run_id }}
+        RUN_NUMBER: ${{ github.run_number }}
+        SHA: ${{ github.sha }}
+        WORKFLOW: ${{ github.workflow }}
+        CHANNEL: ${{ inputs.channel }}
+        EMOJI: ${{ inputs.emoji }}
+        ENVIRONMENT: ${{ inputs.env }}
+        TAG: ${{ inputs.tag }}
+        TS: ${{ inputs.ts }}
