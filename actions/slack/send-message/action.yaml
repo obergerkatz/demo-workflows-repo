@@ -49,14 +49,19 @@ runs:
         sed -i "s|{{ env }}|${{ inputs.env }}|g" blocks.json
         sed -i "s|{{ tag }}|${{ inputs.tag }}|g" blocks.json
         
-        # Write valid YAML payload, using block literal (|) to embed JSON
-        {
-          echo "channel: ${{ inputs.channel }}"
-          echo "text: '${{ github.workflow }} #${{ github.run_number }}'"
-          echo "thread_ts: \"${{ inputs.thread_ts }}\""
-          echo "blocks: |"
-          cat blocks.json | sed 's/^/  /'
-        } > payload.yml
+        # Assemble full payload as JSON
+        jq -n \
+          --arg channel "${{ inputs.channel }}" \
+          --arg text "${{ github.workflow }} #${{ github.run_number }}" \
+          --arg thread_ts "${{ inputs.thread_ts }}" \
+          --slurpfile blocks blocks.json \
+          '{
+            channel: $channel,
+            text: $text,
+            thread_ts: $thread_ts,
+            blocks: $blocks[0]
+          }' > payload.json
+
 
 
     - name: Send Slack message
