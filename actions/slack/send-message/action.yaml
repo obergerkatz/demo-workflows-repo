@@ -10,7 +10,8 @@ inputs:
     required: true
   text:
     description: "Plain text for the message (markdown is supported)"
-    required: true
+    required: false
+    default: "${{ github.workflow }} #${{ github.run_number }}" # The `text` is used in places where the content cannot be rendered when using blocks
   thread_ts:
     description: "Timestamp of the message to post in a thread"
     required: false
@@ -28,6 +29,14 @@ outputs:
 runs:
   using: "composite"
   steps:
+    - name: Validate input
+      shell: bash
+      run: |
+        if [ -z "${{ inputs.text }}" ] && [ -z "${{ inputs.blocks }}" ]; then
+          echo "Error: You must provide at least one of 'text' or 'blocks'."
+          exit 1
+        fi
+
     - name: Send Slack message
       id: send_slack_message
       uses: slackapi/slack-github-action@v2.1.1
