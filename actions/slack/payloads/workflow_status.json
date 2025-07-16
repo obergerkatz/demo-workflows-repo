@@ -1,6 +1,6 @@
 {
   "channel": "${{ env.CHANNEL }}",
-  "text": "${{ env.EMOJI }} ${{ env.WORKFLOW }} #${{ env.RUN_NUMBER }}",
+  "text": "${{ env.WORKFLOW }} #${{ env.RUN_NUMBER }} ${{ env.EMOJI }}",
   "thread_ts": "${{ env.THREAD_TS }}",
   "ts": "${{ env.TS }}",
   "blocks": [
