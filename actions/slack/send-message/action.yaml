@@ -62,3 +62,4 @@ runs:
         token: ${{ inputs.token }}
         method: chat.postMessage
         payload-file-path: payload.yml
+        payload-templated: 'true'
