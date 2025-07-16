@@ -2,6 +2,7 @@
   "channel": "${{ env.CHANNEL }}",
   "text": "${{ env.EMOJI }} ${{ env.WORKFLOW }} #${{ env.RUN_NUMBER }}",
   "thread_ts": "${{ env.THREAD_TS }}",
+  "ts": "${{ env.TS }}",
   "blocks": [
     {
       "type": "header",
