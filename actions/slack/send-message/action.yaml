@@ -32,10 +32,11 @@ runs:
     - name: Validate input
       shell: bash
       run: |
-        TEXT_INPUT="${{ inputs.text }}"
-        BLOCKS_INPUT="${{ inputs.blocks }}"
+        echo "${{ inputs.blocks }}" > blocks_input.json
         
-        if [[ -z "$TEXT_INPUT" && -z "$BLOCKS_INPUT" ]]; then
+        BLOCKS_INPUT=$(cat blocks_input.json)
+        
+        if [[ -z "${{ inputs.text }}" && -z "$BLOCKS_INPUT" ]]; then
           echo "Error: You must provide at least one of 'text' or 'blocks'."
           exit 1
         fi
