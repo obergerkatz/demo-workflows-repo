@@ -8,9 +8,6 @@ inputs:
   channel:
     description: "Slack channel ID to post to"
     required: true
-  status:
-    description: "Workflow status (success, failed, ongoing)"
-    required: true
   emoji:
     description: "Slack emoji that represents the workflow status (e.g. :white_check_mark: for success, :x: for failure, :arrows_counterclockwise: for ongoing)"
     required: true
