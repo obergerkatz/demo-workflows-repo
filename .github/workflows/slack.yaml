@@ -36,15 +36,13 @@ jobs:
                   "emoji": true
                 }
               },
-              {
-                "type": "divider"
-              },
+              { "type": "divider" },
               {
                 "type": "context",
                 "elements": [
                   {
                     "type": "mrkdwn",
-                    "text": "• *Repository:* `${{ github.repository }}`"
+                    "text": "• *Repository:* \"${{ github.repository }}\""
                   }
                 ]
               },
@@ -53,7 +51,7 @@ jobs:
                 "elements": [
                   {
                     "type": "mrkdwn",
-                    "text": "• *Branch:* `${{ github.ref_name }}`"
+                    "text": "• *Branch:* \"${{ github.ref_name }}\""
                   }
                 ]
               },
@@ -62,7 +60,7 @@ jobs:
                 "elements": [
                   {
                     "type": "mrkdwn",
-                    "text": "• *Environment:* `qa`"
+                    "text": "• *Environment:* \"qa\""
                   }
                 ]
               },
@@ -71,7 +69,7 @@ jobs:
                 "elements": [
                   {
                     "type": "mrkdwn",
-                    "text": "• *Tag:* `tag-${{ github.sha }}`"
+                    "text": "• *Tag:* \"tag-${{ github.sha }}\""
                   }
                 ]
               },
@@ -80,13 +78,11 @@ jobs:
                 "elements": [
                   {
                     "type": "mrkdwn",
-                    "text": "• *Run by:* `@${{ github.actor }}`"
+                    "text": "• *Run by:* \"@${{ github.actor }}\""
                   }
                 ]
               },
-              {
-                "type": "divider"
-              },
+              { "type": "divider" },
               {
                 "type": "section",
                 "fields": [
