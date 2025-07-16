@@ -63,6 +63,7 @@ runs:
       id: send
       uses: slackapi/slack-github-action@v2.1.1
       with:
+        errors: 'true'
         token: ${{ inputs.token }}
         method: chat.postMessage
         payload-file-path: payload.yml
