@@ -37,7 +37,7 @@ runs:
       with:
         method: chat.update
         token: ${{ inputs.token }}
-        payload-file-path: ${{ github.action_path }}/payload.json
+        payload-file-path: ${{ github.action_path }}/../payloads/workflow_status.json
         payload-templated: 'true'
       env:
         RUN_NUMBER: ${{ github.run_number }}
