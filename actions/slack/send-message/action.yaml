@@ -41,15 +41,24 @@ runs:
           exit 1
         fi
 
+    - name: Write Slack payload to file
+      shell: bash
+      run: |
+        echo "channel: ${{ inputs.channel }}" > payload.yml
+        if [[ -n "${{ inputs.text }}" ]]; then
+          echo "text: ${{ inputs.text }}" >> payload.yml
+        fi
+        echo "thread_ts: \"${{ inputs.thread_ts }}\"" >> payload.yml
+
+        # Add blocks only if not empty
+        if [[ -s blocks_input.json && $(jq -e 'length > 0' blocks_input.json) ]]; then
+          echo "blocks: $(cat blocks_input.json)" >> payload.yml
+        fi
+
     - name: Send Slack message
-      id: send_slack_message
+      id: send
       uses: slackapi/slack-github-action@v2.1.1
       with:
-        errors: "true"
-        method: chat.postMessage
         token: ${{ inputs.token }}
-        payload: |
-          channel: ${{ inputs.channel }}
-          text: ${{ inputs.text }}
-          thread_ts: "${{ inputs.thread_ts }}"
-          ${{ inputs.blocks != '' && format('blocks: {0}', inputs.blocks) || '' }}
+        method: chat.postMessage
+        payload-file-path: payload.yml
