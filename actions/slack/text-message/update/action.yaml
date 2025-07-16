@@ -26,5 +26,5 @@ runs:
         token: ${{ inputs.token }}
         payload: |
           channel: ${{ inputs.channel }}
-          text: ${{ inputs.text }}
+          text: "${{ inputs.text }}"
           ts: ${{ inputs.ts }}
