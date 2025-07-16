@@ -12,16 +12,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Send Slack Message 1
-        id: send_slack_message_1
+      - name: Send Slack Message - without Blocks
+        id: send_slack_message_without_blocks
         uses: ./actions/slack/send-message
         with:
           channel: ${{ secrets.SLACK_CHANNEL_ID }}
           text: 'Hello world! This is a test message from _GitHub Actions_.'
           token: ${{ secrets.SLACK_BOT_TOKEN }}
 
-      - name: Send Slack Message 1
-        id: send_slack_message_1
+      - name: Send Slack Message - with Blocks
+        id: send_slack_message_with_blocks
         uses: ./actions/slack/send-message
         with:
           channel: ${{ secrets.SLACK_CHANNEL_ID }}
