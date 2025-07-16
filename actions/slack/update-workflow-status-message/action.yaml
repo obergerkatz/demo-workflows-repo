@@ -35,13 +35,12 @@ runs:
     - name: Update workflow status message
       uses: slackapi/slack-github-action@v2.1.1
       with:
-        errors: "true"
         method: chat.update
         token: ${{ inputs.token }}
         payload: |
           channel: ${{ inputs.channel }}
-          ts: ${{ inputs.ts }}
           text: "${{ steps.get_status_emoji.outputs.emoji }} ${{ github.workflow }} #${{ github.run_number }}" # The `text` is used in places where the content cannot be rendered
+          ts: ${{ inputs.ts }}
           blocks:
             - type: header
               text:
