@@ -44,10 +44,20 @@ runs:
     - name: Write Slack payload to file
       shell: bash
       run: |
-        echo "channel: ${{ inputs.channel }}" > payload.yml
-        echo "text: '${{ github.workflow }} #${{ github.run_number }}'" >> payload.yml
-        echo "thread_ts: \"${{ inputs.thread_ts }}\"" >> payload.yml
-        echo "blocks: $(cat blocks.json)" >> payload.yml
+        # Preprocess the blocks template
+        cp "${{ github.action_path }}/blocks-template.json" blocks.json
+        sed -i "s|{{ env }}|${{ inputs.env }}|g" blocks.json
+        sed -i "s|{{ tag }}|${{ inputs.tag }}|g" blocks.json
+        
+        # Write valid YAML payload, using block literal (|) to embed JSON
+        {
+          echo "channel: ${{ inputs.channel }}"
+          echo "text: '${{ github.workflow }} #${{ github.run_number }}'"
+          echo "thread_ts: \"${{ inputs.thread_ts }}\""
+          echo "blocks: |"
+          cat blocks.json | sed 's/^/  /'
+        } > payload.yml
+
 
     - name: Send Slack message
       id: send
