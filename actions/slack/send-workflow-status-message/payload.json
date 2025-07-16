@@ -1,13 +1,13 @@
 {
   "channel": "${{ env.CHANNEL }}",
-  "text": "${{ env.EMOJI }} ${{ github.workflow }} #${{ github.run_number }}",
+  "text": "${{ env.EMOJI }} ${{ env.WORKFLOW }} #${{ env.RUN_NUMBER }}",
   "thread_ts": "${{ env.THREAD_TS }}",
   "blocks": [
     {
       "type": "header",
       "text": {
         "type": "plain_text",
-        "text": "${{ github.workflow }} #${{ github.run_number }} ${{ env.EMOJI }}",
+        "text": "${{ env.WORKFLOW }} #${{ env.RUN_NUMBER }} ${{ env.EMOJI }}",
         "emoji": true
       }
     },
@@ -19,7 +19,7 @@
       "elements": [
         {
           "type": "mrkdwn",
-          "text": "• *Repository:* `${{ github.repository }}`"
+          "text": "• *Repository:* `${{ env.REPO }}`"
         }
       ]
     },
@@ -28,7 +28,7 @@
       "elements": [
         {
           "type": "mrkdwn",
-          "text": "• *Branch:* `${{ github.ref_name }}`"
+          "text": "• *Branch:* `${{ env.REF_NAME }}`"
         }
       ]
     },
@@ -55,7 +55,7 @@
       "elements": [
         {
           "type": "mrkdwn",
-          "text": "• *Run by:* `@${{ github.actor }}`"
+          "text": "• *Run by:* `@${{ env.ACTOR }}`"
         }
       ]
     },
@@ -67,11 +67,11 @@
       "fields": [
         {
           "type": "mrkdwn",
-          "text": ":copyright: <https://github.com/${{ github.repository }}/commit/${{ github.sha }}|View Commit>"
+          "text": ":copyright: <https://github.com/${{ env.REPO }}/commit/${{ env.SHA }}|View Commit>"
         },
         {
           "type": "mrkdwn",
-          "text": ":page_facing_up: <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Workflow Logs>"
+          "text": ":page_facing_up: <https://github.com/${{ env.REPO }}/actions/runs/${{ env.RUN_ID }}|View Workflow Logs>"
         }
       ]
     }
