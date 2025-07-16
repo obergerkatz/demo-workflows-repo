@@ -16,8 +16,12 @@ inputs:
     description: "Timestamp of the message to post in a thread"
     required: false
     default: ""
-  blocks:
-    description: "JSON array string for Slack Block Kit layout (optional)"
+  env:
+    description: "Environment name (e.g. qa, prod)"
+    required: false
+    default: ""
+  tag:
+    description: "Tag or version of the deployment"
     required: false
     default: ""
 
@@ -29,34 +33,21 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Validate inputs
+    - name: Render Slack blocks template
       shell: bash
       run: |
-        BLOCKS_INPUT=$(cat <<EOF
-        ${{ inputs.blocks }}
-        EOF
-        )
-        TEXT_INPUT="${{ inputs.text }}"
-      
-        if [[ -z "$TEXT_INPUT" && -z "$BLOCKS_INPUT" ]]; then
-          echo "❌ Error: You must provide at least one of 'text' or 'blocks'."
-        exit 1
-        fi
+        cp "${{ github.action_path }}/blocks-template.json" blocks.json
         
-        echo "$BLOCKS_INPUT" > blocks_input.json
+        sed -i "s|{{ env }}|${{ inputs.env }}|g" blocks.json
+        sed -i "s|{{ tag }}|${{ inputs.tag }}|g" blocks.json
 
     - name: Write Slack payload to file
       shell: bash
       run: |
         echo "channel: ${{ inputs.channel }}" > payload.yml
-        if [[ -n "${{ inputs.text }}" ]]; then
-          echo "text: ${{ inputs.text }}" >> payload.yml
-        fi
+        echo "text: '${{ github.workflow }} #${{ github.run_number }}'" >> payload.yml
         echo "thread_ts: \"${{ inputs.thread_ts }}\"" >> payload.yml
-        
-        if [[ -s blocks_input.json && $(jq -e 'length > 0' blocks_input.json) ]]; then
-          echo "blocks: $(cat blocks_input.json)" >> payload.yml
-        fi
+        echo "blocks: $(cat blocks.json)" >> payload.yml
 
     - name: Send Slack message
       id: send
