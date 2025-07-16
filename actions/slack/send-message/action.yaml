@@ -15,6 +15,10 @@ inputs:
     description: "Timestamp of the message to post in a thread"
     required: false
     default: ""
+  blocks:
+    description: "JSON array string for Slack Block Kit layout (optional)"
+    required: false
+    default: ""
 
 outputs:
   ts:
@@ -28,9 +32,11 @@ runs:
       id: send_slack_message
       uses: slackapi/slack-github-action@v2.1.1
       with:
+        errors: "true"
         method: chat.postMessage
         token: ${{ inputs.token }}
         payload: |
           channel: ${{ inputs.channel }}
           text: ${{ inputs.text }}
           thread_ts: "${{ inputs.thread_ts }}"
+          ${{ inputs.blocks != '' && format('blocks: {0}', inputs.blocks) || '' }}
