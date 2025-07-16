@@ -32,7 +32,10 @@ runs:
     - name: Validate input
       shell: bash
       run: |
-        if [ -z "${{ inputs.text }}" ] && [ -z "${{ inputs.blocks }}" ]; then
+        TEXT_INPUT="${{ inputs.text }}"
+        BLOCKS_INPUT="${{ inputs.blocks }}"
+        
+        if [[ -z "$TEXT_INPUT" && -z "$BLOCKS_INPUT" ]]; then
           echo "Error: You must provide at least one of 'text' or 'blocks'."
           exit 1
         fi
