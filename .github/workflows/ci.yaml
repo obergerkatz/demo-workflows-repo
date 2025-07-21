@@ -1,50 +1,60 @@
 name: CI
 on: [push]
+env:
+  SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
 jobs:
-  run-all-actions:
+  echo:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Echo from workflow
+        run: echo "👋 Hello from CI workflow!"
+      - name: Echo SLACK_CHANNEL_ID
+        run: echo "SLACK_CHANNEL_ID is ${{ env.SLACK_CHANNEL_ID }}"
 
-      - name: Configure AWS Credentials
-        uses: ./actions/aws/configure-creds
-
-      - name: Build
-        uses: ./actions/docker/build
-
-      - name: Push
-        uses: ./actions/docker/push
-
-      - name: Sync ArgoCD
-        uses: ./actions/argocd/sync
-
-      - name: Wait for ArgoCD
-        uses: ./actions/argocd/wait
-
-      - name: Sync ArgoCD
-        uses: ./action-sets/argocd/sync-and-wait
-
-      - name: Build and Push Docker Image
-        uses: ./action-sets/docker/build-and-push
-
-  run-only-action-sets:
-    needs: run-all-actions
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Build and Push Docker Image
-        uses: ./action-sets/docker/build-and-push
-
-      - name: Sync ArgoCD
-        uses: ./action-sets/argocd/sync-and-wait
-
-  run-only-reusable-ci:
-    needs: run-only-action-sets
-    uses: ./.github/workflows/reusable-ci.yaml
-
-  run-only-reusable-cd:
-    needs: run-only-reusable-ci
-    uses: ./.github/workflows/reusable-cd.yaml
+#  run-all-actions:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v4
+#
+#      - name: Configure AWS Credentials
+#        uses: ./actions/aws/configure-creds
+#
+#      - name: Build
+#        uses: ./actions/docker/build
+#
+#      - name: Push
+#        uses: ./actions/docker/push
+#
+#      - name: Sync ArgoCD
+#        uses: ./actions/argocd/sync
+#
+#      - name: Wait for ArgoCD
+#        uses: ./actions/argocd/wait
+#
+#      - name: Sync ArgoCD
+#        uses: ./action-sets/argocd/sync-and-wait
+#
+#      - name: Build and Push Docker Image
+#        uses: ./action-sets/docker/build-and-push
+#
+#  run-only-action-sets:
+#    needs: run-all-actions
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v4
+#
+#      - name: Build and Push Docker Image
+#        uses: ./action-sets/docker/build-and-push
+#
+#      - name: Sync ArgoCD
+#        uses: ./action-sets/argocd/sync-and-wait
+#
+#  run-only-reusable-ci:
+#    needs: run-only-action-sets
+#    uses: ./.github/workflows/reusable-ci.yaml
+#
+#  run-only-reusable-cd:
+#    needs: run-only-reusable-ci
+#    uses: ./.github/workflows/reusable-cd.yaml
