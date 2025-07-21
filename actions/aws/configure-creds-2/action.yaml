@@ -1,8 +1,17 @@
 name: "Configure AWS Credentials"
 description: "Simulates a step to configure AWS credentials"
+inputs:
+  aws_account_id:
+    description: "The AWS account ID to assume the role in"
+    required: false
+    default: ${{ env.AWS_ACCOUNT_ID }}
+  aws_region:
+    description: "The AWS region to configure"
+    required: false
+    default: ${{ env.AWS_REGION }}
 runs:
   using: "composite"
   steps:
     - name: Configure AWS Credentials
       shell: bash
-      run: echo "🔑 Simulating AWS credentials configuration for account ${{ env.AWS_ACCOUNT_ID }} in region ${{ env.AWS_REGION }}"
+      run: echo "🔑 Simulating AWS credentials configuration for account ${{ inputs.aws_account_id }} in region ${{ intputs.aws_region }}"

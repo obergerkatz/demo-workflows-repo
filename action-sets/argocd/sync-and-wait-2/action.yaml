@@ -1,6 +1,22 @@
 name: "Sync and Wait (Demo Set)"
 description: "Simulates sync and wait commands in argocd"
 inputs:
+  argocd_username:
+    description: "The username for ArgoCD"
+    required: false
+    default: ${{ env.ARGOCD_USERNAME }}
+  aws_account_id:
+    description: "The AWS account ID to assume the role in"
+    required: false
+    default: ${{ env.AWS_ACCOUNT_ID }}
+  aws_region:
+    description: "The AWS region to configure"
+    required: false
+    default: ${{ env.AWS_REGION }}
+  service_name:
+    description: "The name of the cluster to sync and wait"
+    required: false
+    default: ${{ env.SERVICE_NAME }}
   timeout_seconds:
     description: "The maximum time to wait for the deployment to complete"
     required: false
@@ -11,23 +27,23 @@ runs:
     - name: Verify ArgoCD Username
       shell: bash
       run: |
-        if [ -z "${{ env.ARGOCD_USERNAME }}" ]; then
+        if [ -z "${{ inputs.argocd_username }}" ]; then
           echo "Error: ArgoCD username is required."
           exit 1
         else
-            echo "✅ ArgoCD username is set to '${{ env.ARGOCD_USERNAME }}'."
+            echo "✅ ArgoCD username is set to '${{ inputs.argocd_username }}'."
         fi
     - name: Configure AWS Credentials
       uses: ./actions/aws/configure-creds
       with:
-        aws_account_id: ${{ env.AWS_ACCOUNT_ID }}
-        aws_region: ${{ env.AWS_REGION }}
+        aws_account_id: ${{ inputs.aws_account_id }}
+        aws_region: ${{ inputs.aws_region }}
     - name: Sync step
       uses: ./actions/argocd/sync
       with:
-        service_name: ${{ env.SERVICE_NAME }}
+        service_name: ${{ inputs.service_name }}
     - name: Wait step
       uses: ./actions/argocd/wait
       with:
-        service_name: ${{ env.SERVICE_NAME }}
+        service_name: ${{ inputs.service_name }}
         timeout_seconds: ${{ inputs.timeout_seconds }}
