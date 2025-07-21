@@ -25,4 +25,4 @@ jobs:
     needs: run_ci_euc1
     with:
       environment: develop_euc1
-      image_tag: ${{ needs.run_ci_use1.outputs.tag }}
+      image_tag: ${{ needs.run_ci_euc1.outputs.tag }}

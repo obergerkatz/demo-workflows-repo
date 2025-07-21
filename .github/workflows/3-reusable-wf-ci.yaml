@@ -23,6 +23,10 @@ jobs:
         run: |
           TAG="v-$(date +%s)"
           echo "tag=$TAG" >> $GITHUB_OUTPUT
+      - name: Print generated tag
+        shell: bash
+        run: |
+          echo "Generated Docker tag: ${{ steps.tag.outputs.tag }}"
       - name: Configure AWS credentials
         uses: ./actions/aws/configure-creds-2
       - name: Build and push Docker image
