@@ -1,4 +1,4 @@
-name: CICD Env
+name: CI/CD passing variables using 'env'
 on:
   workflow_dispatch:
 jobs:

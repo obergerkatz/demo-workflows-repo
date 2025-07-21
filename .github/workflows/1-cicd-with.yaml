@@ -1,4 +1,4 @@
-name: CICD All
+name: CI/CD passing variables using 'with'
 on:
   workflow_dispatch:
 jobs:
