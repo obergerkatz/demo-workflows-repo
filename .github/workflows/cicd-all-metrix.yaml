@@ -1,4 +1,4 @@
-name: CICD Passing All Inputs to Action Using Matrix
+name: CICD All - Matrix
 on:
   workflow_dispatch:
 
