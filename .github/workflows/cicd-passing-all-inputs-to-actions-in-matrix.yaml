@@ -27,6 +27,7 @@ jobs:
           aws_region: ${{ vars.AWS_REGION }}
 
   cd_matrix:
+    needs: ci_matrix
     runs-on: ubuntu-latest
     strategy:
       matrix:
