@@ -14,7 +14,7 @@ jobs:
           echo "BAR=${{ vars.BAR }}" >> config.env
           echo "FOO=${{ secrets.FOO }}" >> config.env
           echo "SLACK_BOT_TOKEN=${{ secrets.SLACK_BOT_TOKEN }}" >> config.env
-          echo "SLACK_CHANNEL=${{ secrets.SLACK_CHANNEL_ID }}" >> config.env
+          echo "SLACK_CHANNEL_ID=${{ secrets.SLACK_CHANNEL_ID }}" >> config.env
           source config.env
         shell: bash
 
@@ -41,7 +41,7 @@ jobs:
           token: "${{ env.SLACK_BOT_TOKEN }}"
           payload: >
             {
-              "channel": "${{ env.SLACK_CHANNEL}}",
+              "channel": "${{ env.SLACK_CHANNEL_ID}}",
               "text": "FOO FOO",
             }
 
