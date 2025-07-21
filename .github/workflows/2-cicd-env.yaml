@@ -61,3 +61,5 @@ jobs:
         uses: ./action-sets/argocd/sync-and-wait-2
         with:
           timeout_seconds: '40'
+        env:
+          SERVICE_NAME: "service_foo_develop_euc1-11111111111111111111111111111111111"  # Example of overriding the env variable
