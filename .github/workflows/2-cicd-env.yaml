@@ -1,12 +1,15 @@
 name: CI/CD passing variables using 'env'
 on:
   workflow_dispatch:
+env:
+  SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }} # Example of global environment variables used across jobs
+  SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 jobs:
   ci_develop_use1:
     runs-on: ubuntu-latest
     environment: develop_use1
     env:
-      AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+      AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }} # Example of passing variables using 'env'
       AWS_REGION: ${{ vars.AWS_REGION }}
     steps:
       - name: Checkout repository
@@ -24,8 +27,6 @@ jobs:
       AWS_REGION: ${{ vars.AWS_REGION }}
       SERVICE_NAME: "service_foo_develop_use1"
       ARGOCD_USERNAME: ${{ secrets.ARGOCD_USERNAME }}
-      SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
-      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -61,8 +62,6 @@ jobs:
       AWS_REGION: ${{ vars.AWS_REGION }}
       SERVICE_NAME: "service_foo_develop_euc1"
       ARGOCD_USERNAME: ${{ secrets.ARGOCD_USERNAME }}
-      SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
-      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
