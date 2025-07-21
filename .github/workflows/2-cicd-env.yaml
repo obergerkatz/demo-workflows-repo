@@ -22,7 +22,7 @@ jobs:
         uses: ./action-sets/docker/build-and-push-2
       - name: Generate Docker image tag
         id: docker_image_tag
-        run: echo "docker_image_tag=service_foo_develop_use1-$(date +%Y%m%d%H%M%S)" >> $GITHUB_ENV
+        run: echo "docker_image_tag=service_foo_develop_use1-$(date +%Y%m%d%H%M%S)" >> $GITHUB_OUTPUT
   cd_develop_use1:
     runs-on: ubuntu-latest
     needs: ci_develop_use1
@@ -62,7 +62,7 @@ jobs:
         uses: ./action-sets/docker/build-and-push-2
       - name: Generate Docker image tag
         id: docker_image_tag
-        run: echo "docker_image_tag=service_foo_develop_euc1-$(date +%Y%m%d%H%M%S)" >> $GITHUB_ENV
+        run: echo "docker_image_tag=service_foo_develop_euc1-$(date +%Y%m%d%H%M%S)" >> $GITHUB_OUTPUT
   cd_develop_euc1:
     runs-on: ubuntu-latest
     needs: ci_develop_euc1
