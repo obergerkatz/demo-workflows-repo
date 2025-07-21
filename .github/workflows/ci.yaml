@@ -6,6 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     environment: main
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Echo from workflow
         uses: ./action-sets/docker-2/build-and-push
 
