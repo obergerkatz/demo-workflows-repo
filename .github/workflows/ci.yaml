@@ -18,6 +18,28 @@ jobs:
       - name: Use composite action to read and print values
         uses: ./action-sets/docker-2/build-and-push
 
+      - name: Write env and secret values to file
+        run: |
+          echo "BAR=${{ vars.BAR }}" >> config.env
+          echo "FOO=${{ secrets.FOO }}" >> config.env
+
+      - name: Validate file values match inputs
+        run: |
+          source config.env
+          
+          if [[ "$BAR" != "${{ vars.BAR }}" ]]; then
+            echo "❌ BAR value mismatch!"
+            exit 1
+          fi
+          
+          if [[ "$FOO" != "${{ secrets.FOO }}" ]]; then
+            echo "❌ FOO value mismatch!"
+            exit 1
+          fi
+          
+          echo "✅ Values match secrets and vars."
+        shell: bash
+
 
 #  run-all-actions:
 #    runs-on: ubuntu-latest
