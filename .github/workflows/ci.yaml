@@ -1,21 +1,13 @@
 name: CI
 on: [push]
-env:
-  SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
-  FOO: ${{ env.FOO }}
-  BAR: ${{ env.BAR }}
+
 jobs:
   echo:
     runs-on: ubuntu-latest
+    environment: main
     steps:
       - name: Echo from workflow
-        run: echo "👋 Hello from CI workflow!"
-      - name: Echo secret SLACK_CHANNEL_ID
-        run: echo "SLACK_CHANNEL_ID is ${{ env.SLACK_CHANNEL_ID }}"
-      - name: Echo envar FOO
-        run: echo "FOO is ${{ env.FOO }}"
-      - name: Echo envar BAR
-        run: echo "BAR is ${{ env.BAR }}"
+        uses: ./action-sets/docker-2/build-and-push
 
 #  run-all-actions:
 #    runs-on: ubuntu-latest

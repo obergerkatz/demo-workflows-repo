@@ -3,8 +3,16 @@ description: "Simulates running docker build and push using two actions"
 runs:
   using: "composite"
   steps:
-    - name: Build step
-      uses: ./actions/docker/build
+    - name: Echo ENVAR BAR
+      run: echo "BAR is ${{ vars.BAR }}"
+      shell: bash
 
-    - name: Push step
-      uses: ./actions/docker/push
+    - name: Echo ENVAR FOO
+      run: echo "FOO is ${{ secrets.FOO }}"
+      shell: bash
+
+#    - name: Build step
+#      uses: ./actions/docker/build
+#
+#    - name: Push step
+#      uses: ./actions/docker/push
