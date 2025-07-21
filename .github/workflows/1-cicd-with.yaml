@@ -25,12 +25,24 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Send Slack Message - Deployment Started
+        uses: ./actions/slack/text-message/send
+        with:
+          text: 'Deployment of service_foo_develop_use1 to ${{ env.AWS_REGION }} is starting :rocket:'
+          channel: ${{ secrets.SLACK_CHANNEL_ID }}
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
       - name: Sync and wait for ArgoCD
         uses: ./action-sets/argocd/sync-and-wait
         with:
           aws_account_id: ${{ vars.AWS_ACCOUNT_ID }}
           aws_region: ${{ vars.AWS_REGION }}
           service_name: "service_foo_develop_use1"
+      - name: Send Slack Message - Deployment Complete
+        uses: ./actions/slack/text-message/send
+        with:
+          text: 'Deployment of service_foo_develop_use1 to ${{ env.AWS_REGION }} is complete :rocket:'
+          channel: ${{ secrets.SLACK_CHANNEL_ID }}
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
   ci_develop_euc1:
     runs-on: ubuntu-latest
     environment: develop_euc1
@@ -54,9 +66,22 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Send Slack Message - Deployment Started
+        uses: ./actions/slack/text-message/send
+        with:
+          text: 'Deployment of service_foo_develop_euc1 to ${{ env.AWS_REGION }} is starting :rocket:'
+          channel: ${{ secrets.SLACK_CHANNEL_ID }}
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
       - name: Sync and wait for ArgoCD
         uses: ./action-sets/argocd/sync-and-wait
         with:
           aws_account_id: ${{ vars.AWS_ACCOUNT_ID }}
           aws_region: ${{ vars.AWS_REGION }}
           service_name: "service_foo_develop_euc1"
+          timeout_seconds: '40'
+      - name: Send Slack Message - Deployment Complete
+        uses: ./actions/slack/text-message/send
+        with:
+          text: 'Deployment of service_foo_develop_euc1 to ${{ env.AWS_REGION }} is complete :rocket:'
+          channel: ${{ secrets.SLACK_CHANNEL_ID }}
+          token: ${{ secrets.SLACK_BOT_TOKEN }}

@@ -24,11 +24,21 @@ jobs:
       AWS_REGION: ${{ vars.AWS_REGION }}
       SERVICE_NAME: "service_foo_develop_use1"
       ARGOCD_USERNAME: ${{ secrets.ARGOCD_USERNAME }}
+      SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Send Slack Message - Deployment Started
+        uses: ./actions/slack/text-message/send-2
+        with:
+          text: 'Deployment of ${{ env.SERVICE_NAME }} to ${{ env.AWS_REGION }} is starting :rocket:'
       - name: Sync and wait for ArgoCD
         uses: ./action-sets/argocd/sync-and-wait-2
+      - name: Send Slack Message - Deployment Complete
+        uses: ./actions/slack/text-message/send-2
+        with:
+          text: 'Deployment of ${{ env.SERVICE_NAME }} to ${{ env.AWS_REGION }} is complete :rocket:'
   ci_develop_euc1:
     runs-on: ubuntu-latest
     environment: develop_euc1
@@ -51,12 +61,22 @@ jobs:
       AWS_REGION: ${{ vars.AWS_REGION }}
       SERVICE_NAME: "service_foo_develop_euc1"
       ARGOCD_USERNAME: ${{ secrets.ARGOCD_USERNAME }}
+      SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Send Slack Message - Deployment Started
+        uses: ./actions/slack/text-message/send-2
+        with:
+          text: 'Deployment of ${{ env.SERVICE_NAME }} to ${{ env.AWS_REGION }} is starting :rocket:'
       - name: Sync and wait for ArgoCD
         uses: ./action-sets/argocd/sync-and-wait-2
         with:
           timeout_seconds: '40'
         env:
           SERVICE_NAME: "service_foo_develop_euc1-11111111111111111111111111111111111"  # Example of overriding the env variable
+      - name: Send Slack Message - Deployment Complete
+        uses: ./actions/slack/text-message/send-2
+        with:
+          text: 'Deployment of ${{ env.SERVICE_NAME }} to ${{ env.AWS_REGION }} is complete :rocket:'
