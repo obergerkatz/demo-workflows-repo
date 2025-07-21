@@ -1,18 +1,23 @@
 name: "Docker Build and Push (Demo Set)"
-description: "Simulates running docker build and push using two actions"
+description: "Simulates running docker build and push using a file"
 runs:
   using: "composite"
   steps:
-    - name: Echo ENVAR BAR
-      run: echo "BAR is ${{ vars.BAR }}"
+    - name: Load and print env values
       shell: bash
+      run: |
+        if [[ ! -f config.env ]]; then
+          echo "Missing config.env file!"
+          exit 1
+        fi
 
-    - name: Echo ENVAR FOO
-      run: echo "FOO is ${{ secrets.FOO }}"
-      shell: bash
+        echo "Contents of config.env:"
+        cat config.env
 
-#    - name: Build step
-#      uses: ./actions/docker/build
-#
-#    - name: Push step
-#      uses: ./actions/docker/push
+        echo "Sourcing config.env..."
+        set -o allexport
+        source config.env
+        set +o allexport
+
+        echo "BAR is: $BAR"
+        echo "FOO is: $FOO"

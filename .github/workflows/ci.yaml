@@ -4,13 +4,20 @@ on: [push]
 jobs:
   echo:
     runs-on: ubuntu-latest
-    environment: main
+    environment: main  # grants access to environment vars/secrets
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Echo from workflow
+      - name: Write env and secret values to file
+        run: |
+          echo "BAR=${{ vars.BAR }}" >> config.env
+          echo "FOO=${{ secrets.FOO }}" >> config.env
+        shell: bash
+
+      - name: Use composite action to read and print values
         uses: ./action-sets/docker-2/build-and-push
+
 
 #  run-all-actions:
 #    runs-on: ubuntu-latest
