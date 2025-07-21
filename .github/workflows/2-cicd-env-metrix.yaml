@@ -9,6 +9,8 @@ jobs:
       matrix:
         env_name: [develop_use1, develop_euc1]
     environment: ${{ matrix.env_name }}
+    outputs:
+      env_name: ${{ matrix.env_name }}
     env:
       AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
       AWS_REGION: ${{ vars.AWS_REGION }}
@@ -19,6 +21,13 @@ jobs:
         uses: ./actions/aws/configure-creds-2
       - name: Build and push Docker image
         uses: ./action-sets/docker/build-and-push-2
+
+  print_matrix:
+    needs: ci_matrix
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print matrix env_name
+        run: echo "Matrix env_name is ${{ needs.ci_matrix.outputs.env_name }}"
 
   cd_matrix:
     needs: ci_matrix
