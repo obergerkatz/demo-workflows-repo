@@ -9,11 +9,12 @@ jobs:
       matrix:
         env_name: [develop_use1, develop_euc1]
     environment: ${{ matrix.env_name }}
-    outputs:
-      env_name: ${{ matrix.env_name }}
     env:
       AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
       AWS_REGION: ${{ vars.AWS_REGION }}
+    outputs:
+        tag_develop_use1: ${{ steps.generate_tag.outputs.tag_develop_use1 }}
+        tag_develop_euc1: ${{ steps.generate_tag.outputs.tag_develop_euc1 }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -21,13 +22,15 @@ jobs:
         uses: ./actions/aws/configure-creds-2
       - name: Build and push Docker image
         uses: ./action-sets/docker/build-and-push-2
+      - name: Generate tag
+        id: generate_tag
+        run: echo "tag_${{ matrix.env_name }}=v1_${{ matrix.env_name }}" >> $GITHUB_ENV
 
   print_matrix:
     needs: ci_matrix
     runs-on: ubuntu-latest
     steps:
-      - name: Print matrix env_name
-        run: echo "Matrix env_name is ${{ needs.ci_matrix.outputs.env_name }}"
+      - run: echo '${{ toJSON(needs.ci_matrix.outputs) }}'
 
   cd_matrix:
     needs: ci_matrix
