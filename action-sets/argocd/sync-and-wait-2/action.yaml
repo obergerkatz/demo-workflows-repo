@@ -11,7 +11,7 @@ runs:
     - name: Verify ArgoCD Username
       shell: bash
       run: |
-        if [ -z "${{ inputs.argocd_username }}" ]; then
+        if [ -z "${{ env.ARGOCD_USERNAME }}" ]; then
           echo "Error: ArgoCD username is required."
           exit 1
         else
