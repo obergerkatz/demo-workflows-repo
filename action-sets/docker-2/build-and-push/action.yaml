@@ -21,3 +21,22 @@ runs:
 
         echo "BAR is: $BAR"
         echo "FOO is: $FOO"
+
+    - name: check foo
+      shell: bash
+      run: |
+   
+        if [[ "$FOO" == "foo" ]]; then
+          echo "FOO is set to the expected secret value."
+        else
+          echo "FOO does not match the expected secret value."
+        fi
+
+    - name: check FOO
+      shell: bash
+      run: |
+        if [[ "$FOO" == "FOO" ]]; then
+          echo "FOO is set to the expected secret value."
+        else
+          echo "FOO does not match the expected secret value."
+        fi
