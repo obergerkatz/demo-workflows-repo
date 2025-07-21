@@ -1,4 +1,4 @@
-name: CICD Passing All Inputs to Action Sets/Actions
+name: CICD Passing All Inputs to Action
 on:
   workflow_dispatch:
 jobs:
