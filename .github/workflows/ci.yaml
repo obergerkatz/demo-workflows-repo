@@ -13,8 +13,8 @@ jobs:
         run: |
           echo "BAR=${{ vars.BAR }}" >> config.env
           echo "FOO=${{ secrets.FOO }}" >> config.env
-          echo "SLACK_BOT_TOKEN=${{ secrets.SLACK_BOT_TOKEN }} >> config.env
-          echo "SLACK_CHANNEL=${{ secrets.SLACK_CHANNEL }} >> config.env
+          echo "SLACK_BOT_TOKEN=${{ secrets.SLACK_BOT_TOKEN }}" >> config.env
+          echo "SLACK_CHANNEL=${{ secrets.SLACK_CHANNEL }}" >> config.env
           source config.env
         shell: bash
 
@@ -38,7 +38,7 @@ jobs:
         uses: slackapi/slack-github-action@v2.0.0
         with:
           method: chat.postMessage
-          token: ${{ env.SLACK_BOT_TOKEN }}
+          token: "${{ env.SLACK_BOT_TOKEN }}"
           payload: >
             {
               "channel": "${{ env.SLACK_CHANNEL}}",
