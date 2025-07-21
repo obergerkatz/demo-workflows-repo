@@ -1,25 +1,16 @@
 name: "Docker Build and Push (Demo Set)"
 description: "Simulates running docker build and push using two actions"
-inputs:
-  aws_account_id:
-    description: "The AWS account ID to assume the role in"
-    required: false
-    default: ${{ env.AWS_ACCOUNT_ID }}
-  aws_region:
-    description: "The AWS region to configure"
-    required: false
-    default: ${{ env.AWS_REGION }}
 runs:
   using: "composite"
   steps:
     - name: Build step
       uses: ./actions/docker/build
       with:
-        aws_account_id: ${{ inputs.aws_account_id }}
-        aws_region: ${{ inputs.aws_region }}
+        aws_account_id: ${{ env.AWS_ACCOUNT_ID }}
+        aws_region: ${{ env.AWS_REGION }}
 
     - name: Push step
       uses: ./actions/docker/push
       with:
-        aws_account_id: ${{ inputs.aws_account_id }}
-        aws_region: ${{ inputs.aws_region }}
+        aws_account_id: ${{ env.AWS_ACCOUNT_ID }}
+        aws_region: ${{ env.AWS_REGION }}
