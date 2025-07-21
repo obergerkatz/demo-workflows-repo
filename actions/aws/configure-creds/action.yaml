@@ -10,6 +10,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Echo push
+    - name: Configure AWS Credentials
       shell: bash
       run: echo "🔑 Simulating AWS credentials configuration for account ${{ inputs.aws_account_id }} in region ${{ inputs.aws_region }}"

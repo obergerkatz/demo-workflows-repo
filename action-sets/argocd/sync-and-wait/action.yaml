@@ -1,10 +1,28 @@
 name: "Sync and Wait (Demo Set)"
 description: "Simulates sync and wait commands in argocd"
+inputs:
+  aws_account_id:
+    description: "The AWS account ID to assume the role in"
+    required: true
+  aws_region:
+    description: "The AWS region to configure"
+    required: true
+  service_name:
+    description: "The name of the cluster to sync and wait"
+    required: true
 runs:
   using: "composite"
   steps:
+    - name: Configure AWS Credentials
+      uses: ./actions/aws/configure-creds
+      with:
+        aws_account_id: ${{ inputs.aws_account_id }}
+        aws_region: ${{ inputs.aws_region }}
     - name: Sync step
       uses: ./actions/argocd/sync
-
+      with:
+        service_name: ${{ inputs.service_name }}
     - name: Wait step
       uses: ./actions/argocd/wait
+      with:
+        service_name: ${{ inputs.service_name }}

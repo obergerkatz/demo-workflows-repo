@@ -25,3 +25,21 @@ jobs:
         with:
           aws_account_id: ${{ vars.AWS_ACCOUNT_ID }}
           aws_region: ${{ vars.AWS_REGION }}
+
+  cd_matrix:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        env_name: [develop_use1, develop_euc1]
+
+    environment: ${{ matrix.env_name }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Sync and wait for ArgoCD
+        uses: ./action-sets/argocd/sync-and-wait
+        with:
+          aws_account_id: ${{ vars.AWS_ACCOUNT_ID }}
+          aws_region: ${{ vars.AWS_REGION }}
+          service_name: "service_foo_${{ matrix.env_name }}"

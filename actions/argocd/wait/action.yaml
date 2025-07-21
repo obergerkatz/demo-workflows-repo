@@ -1,8 +1,16 @@
-name: "ArgoCD Wait Action (Demo Set)"
+name: "ArgoCD Wait Action"
 description: "Simulates a wait step for ArgoCD deployments"
+inputs:
+    service_name:
+      description: "The name of the cluster to wait for"
+      required: true
+    timeout_seconds:
+      description: "The maximum time to wait for the deployment to complete"
+      required: false
+      default: "300"  # Default to 5 minutes if not specified
 runs:
   using: "composite"
   steps:
-    - name: Echo push
+    - name: Wait for ArgoCD Deployment
       shell: bash
-      run: echo "⏳ Simulating ArgoCD wait step..."
+      run: echo "⏳ Simulating wait for ArgoCD deployment of cluster ${{ inputs.service_name }} with timeout ${{ inputs.timeout_seconds }} seconds"

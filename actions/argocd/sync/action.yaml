@@ -1,8 +1,12 @@
-name: "ArgoCD Sync and Wait (Demo Set)"
-description: "Actions to simulate ArgoCD sync and wait steps in a composite action set"
+name: "ArgoCD Sync"
+description: "Actions to simulate ArgoCD sync"
+inputs:
+  service_name:
+    description: "The name of the cluster to sync and wait"
+    required: true
 runs:
   using: "composite"
   steps:
-    - name: Echo build
+    - name: ArgoCD Sync
       shell: bash
-      run: echo "🔄 Simulating ArgoCD sync step..."
+      run: echo "🔄 Simulating ArgoCD sync for cluster ${{ inputs.service_name }}"
