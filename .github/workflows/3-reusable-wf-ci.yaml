@@ -1,0 +1,29 @@
+name: "Reusable CI/CD for Environment"
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+    outputs:
+      tag:
+        description: "The generated Docker image tag"
+        value: ${{ jobs.ci.outputs.tag }}
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate Docker tag
+        id: tag
+        shell: bash
+        run: |
+          TAG="v-$(date +%s)"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+      - name: Configure AWS credentials
+        uses: ./actions/aws/configure-creds-2
+      - name: Build and push Docker image
+        uses: ./action-sets/docker/build-and-push-2

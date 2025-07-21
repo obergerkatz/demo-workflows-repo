@@ -1,0 +1,28 @@
+name: CICD Workflow for Multiple Environments
+on:
+  workflow_dispatch:
+
+jobs:
+  run_ci_use1:
+    uses: .github/workflows/3-reusable-wf-ci.yaml
+    with:
+      environment: develop_use1
+
+  run_cd_use1:
+    uses: .github/workflows/3-reusable-wf-cd.yaml
+    needs: run_ci_use1
+    with:
+      environment: develop_use1
+      image_tag: ${{ needs.run_ci_use1.outputs.tag }}
+
+  run_ci_euc1:
+    uses: .github/workflows/3-reusable-wf-ci.yaml
+    with:
+      environment: develop_euc1
+
+  run_cd_euc1:
+    uses: .github/workflows/3-reusable-wf-cd.yaml
+    needs: run_ci_euc1
+    with:
+      environment: develop_euc1
+      image_tag: ${{ needs.run_ci_use1.outputs.tag }}
