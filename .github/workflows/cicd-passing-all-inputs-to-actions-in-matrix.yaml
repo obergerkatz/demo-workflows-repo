@@ -1,0 +1,27 @@
+name: CICD Passing All Inputs to Action
+on:
+  workflow_dispatch:
+
+jobs:
+  ci_matrix:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        env_name: [develop_use1, develop_euc1]
+
+    environment: ${{ matrix.env_name }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: AWS Configure Credentials
+        uses: ./actions/aws/configure-creds
+        with:
+          aws_account_id: ${{ vars.AWS_ACCOUNT_ID }}
+          aws_region: ${{ vars.AWS_REGION }}
+
+      - name: Build and push Docker image
+        uses: ./action-sets/docker/build-and-push
+        with:
+          aws_account_id: ${{ vars.AWS_ACCOUNT_ID }}
+          aws_region: ${{ vars.AWS_REGION }}
