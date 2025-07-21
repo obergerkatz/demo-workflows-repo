@@ -19,9 +19,9 @@ jobs:
           aws_account_id: ${{ vars.AWS_ACCOUNT_ID }}
           aws_region: ${{ vars.AWS_REGION }}
 
-  ci_develop_ecu1:
+  ci_develop_euc1:
     runs-on: ubuntu-latest
-    environment: develop_ecu1
+    environment: develop_euc1
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
