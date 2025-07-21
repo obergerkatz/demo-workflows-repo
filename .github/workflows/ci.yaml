@@ -30,11 +30,15 @@ jobs:
           if [[ "$BAR" != "${{ vars.BAR }}" ]]; then
             echo "❌ BAR value mismatch!"
             exit 1
+          else
+            echo "✅ BAR value matches vars."
           fi
           
           if [[ "$FOO" != "${{ secrets.FOO }}" ]]; then
             echo "❌ FOO value mismatch!"
             exit 1
+          else
+            echo "✅ FOO value matches secrets."
           fi
           
           echo "✅ Values match secrets and vars."
