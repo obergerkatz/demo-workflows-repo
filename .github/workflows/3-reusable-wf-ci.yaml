@@ -13,6 +13,9 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
+    env:
+      AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
     outputs:
       tag: ${{ steps.tag.outputs.tag }}
     steps:
