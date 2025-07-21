@@ -13,37 +13,25 @@ jobs:
         run: |
           echo "BAR=${{ vars.BAR }}" >> config.env
           echo "FOO=${{ secrets.FOO }}" >> config.env
+          echo "SLACK_BOT_TOKEN=${{ secrets.SLACK_BOT_TOKEN }} >> config.env
+          echo "SLACK_CHANNEL=${{ secrets.SLACK_CHANNEL }} >> config.env
+          source config.env
         shell: bash
 
       - name: Use composite action to read and print values
         uses: ./action-sets/docker-2/build-and-push
 
-      - name: Write env and secret values to file
-        run: |
-          echo "BAR=${{ vars.BAR }}" >> config.env
-          echo "FOO=${{ secrets.FOO }}" >> config.env
-
-      - name: Validate file values match inputs
-        run: |
-          source config.env
-          
-          if [[ "$BAR" != "${{ vars.BAR }}" ]]; then
-            echo "❌ BAR value mismatch!"
-            exit 1
-          else
-            echo "✅ BAR value matches vars."
-          fi
-          
-          if [[ "$FOO" != "${{ secrets.FOO }}" ]]; then
-            echo "❌ FOO value mismatch!"
-            exit 1
-          else
-            echo "✅ FOO value matches secrets."
-          fi
-          
-          echo "✅ Values match secrets and vars."
-        shell: bash
-
+      - id: send
+        continue-on-error: true
+        uses: slackapi/slack-github-action@v2.0.0
+        with:
+          method: chat.postMessage
+          token: ${{ env.SLACK_BOT_TOKEN }}
+          payload: >
+            {
+              "channel": "${{ env.SLACK_CHANNEL}}",
+              "text": "FOO FOO",
+            }
 
 #  run-all-actions:
 #    runs-on: ubuntu-latest
