@@ -35,3 +35,5 @@ jobs:
         uses: actions/checkout@v4
       - name: Sync and wait for ArgoCD
         uses: ./action-sets/argocd/sync-and-wait-2
+        with:
+          timeout_seconds: '40'

@@ -1,5 +1,10 @@
 name: "Sync and Wait (Demo Set)"
 description: "Simulates sync and wait commands in argocd"
+inputs:
+  timeout_seconds:
+    description: "The maximum time to wait for the deployment to complete"
+    required: false
+    default: "300"  # Default to 5 minutes if not specified
 runs:
   using: "composite"
   steps:
@@ -16,3 +21,4 @@ runs:
       uses: ./actions/argocd/wait
       with:
         service_name: ${{ env.SERVICE_NAME }}
+        timeout_seconds: ${{ inputs.timeout_seconds }}
