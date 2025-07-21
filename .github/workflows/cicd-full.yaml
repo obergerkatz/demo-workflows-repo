@@ -1,0 +1,20 @@
+name: CICD Option 1
+on:
+  workflow_dispatch:
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    environment: develop_use1
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: AWS Configure Credentials
+        uses: ./actions/aws/configure-creds
+        with:
+          aws_account_id: ${{ env.AWS_ACCOUNT_ID }}
+          aws_region: ${{ env.AWS_REGION }}
+      - name: Build and push Docker image
+        uses: ./action-sets/docker/build-and-push
+        with:
+          aws_account_id: ${{ env.AWS_ACCOUNT_ID }}
+          aws_region: ${{ env.AWS_REGION }}

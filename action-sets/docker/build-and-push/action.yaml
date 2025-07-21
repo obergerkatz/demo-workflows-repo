@@ -1,5 +1,14 @@
 name: "Docker Build and Push (Demo Set)"
 description: "Simulates running docker build and push using two actions"
+
+inputs:
+    aws_account_id:
+        description: "The AWS account ID to assume the role in"
+        required: true
+    aws_region:
+        description: "The AWS region to configure"
+        required: true
+
 runs:
   using: "composite"
   steps:

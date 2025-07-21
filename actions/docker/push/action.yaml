@@ -1,8 +1,15 @@
 name: "Docker Push (Dummy)"
 description: "Simulates a Docker push step"
+inputs:
+  aws_account_id:
+    description: "The AWS account ID to assume the role in"
+    required: true
+  aws_region:
+    description: "The AWS region to configure"
+    required: true
 runs:
   using: "composite"
   steps:
     - name: Echo push
       shell: bash
-      run: echo "📤 Simulating docker push..."
+      run: echo "🚀 Simulating Docker push for AWS account ${{ inputs.aws_account_id }} in region ${{ inputs.aws_region }}"

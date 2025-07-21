@@ -1,8 +1,15 @@
 name: "Docker Build (Dummy)"
 description: "Simulates a Docker build step"
+inputs:
+  aws_account_id:
+    description: "The AWS account ID to assume the role in"
+    required: true
+  aws_region:
+    description: "The AWS region to configure"
+    required: true
 runs:
   using: "composite"
   steps:
     - name: Echo build
       shell: bash
-      run: echo "🔨 Simulating docker build..."
+      run: echo "🔨 Simulating Docker build for AWS account ${{ inputs.aws_account_id }} in region ${{ inputs.aws_region }}"
