@@ -1,0 +1,59 @@
+name: CICD Env
+on:
+  workflow_dispatch:
+jobs:
+  ci_develop_use1:
+    runs-on: ubuntu-latest
+    environment: develop_use1
+    env:
+      AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+      AWS_REGION: ${{ vars.AWS_REGION }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: AWS Configure Credentials
+        uses: ./actions/aws/configure-creds-2
+      - name: Build and push Docker image
+        uses: ./action-sets/docker/build-and-push-2
+
+  cd_develop_use1:
+    runs-on: ubuntu-latest
+    needs: ci_develop_use1
+    environment: develop_use1
+    env:
+      AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      SERVICE_NAME: "service_foo_develop_use1"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Sync and wait for ArgoCD
+        uses: ./action-sets/argocd/sync-and-wait-2
+
+  ci_develop_euc1:
+    runs-on: ubuntu-latest
+    environment: develop_euc1
+    env:
+      AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+      AWS_REGION: ${{ vars.AWS_REGION }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: AWS Configure Credentials
+        uses: ./actions/aws/configure-creds-2
+      - name: Build and push Docker image
+        uses: ./action-sets/docker/build-and-push-2
+
+  cd_develop_euc1:
+    runs-on: ubuntu-latest
+    needs: ci_develop_euc1
+    environment: develop_use1
+    env:
+      AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      SERVICE_NAME: "service_foo_develop_use1"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Sync and wait for ArgoCD
+        uses: ./action-sets/argocd/sync-and-wait-2
