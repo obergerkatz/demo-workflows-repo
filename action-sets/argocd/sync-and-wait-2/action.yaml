@@ -8,6 +8,15 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Verify ArgoCD Username
+      shell: bash
+      run: |
+        if [ -z "${{ inputs.argocd_username }}" ]; then
+          echo "Error: ArgoCD username is required."
+          exit 1
+        else
+            echo "✅ ArgoCD username is set to '${{ env.ARGOCD_USERNAME }}'."
+        fi
     - name: Configure AWS Credentials
       uses: ./actions/aws/configure-creds
       with:
