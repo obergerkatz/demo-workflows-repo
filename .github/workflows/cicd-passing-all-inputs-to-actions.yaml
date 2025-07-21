@@ -11,13 +11,13 @@ jobs:
       - name: AWS Configure Credentials
         uses: ./actions/aws/configure-creds
         with:
-          aws_account_id: ${{ env.AWS_ACCOUNT_ID }}
-          aws_region: ${{ env.AWS_REGION }}
+          aws_account_id: ${{ vars.AWS_ACCOUNT_ID }}
+          aws_region: ${{ vars.AWS_REGION }}
       - name: Build and push Docker image
         uses: ./action-sets/docker/build-and-push
         with:
-          aws_account_id: ${{ env.AWS_ACCOUNT_ID }}
-          aws_region: ${{ env.AWS_REGION }}
+          aws_account_id: ${{ vars.AWS_ACCOUNT_ID }}
+          aws_region: ${{ vars.AWS_REGION }}
 
   ci_develop_ecu1:
     runs-on: ubuntu-latest
@@ -28,10 +28,10 @@ jobs:
       - name: AWS Configure Credentials
         uses: ./actions/aws/configure-creds
         with:
-          aws_account_id: ${{ env.AWS_ACCOUNT_ID }}
-          aws_region: ${{ env.AWS_REGION }}
+          aws_account_id: ${{ vars.AWS_ACCOUNT_ID }}
+          aws_region: ${{ vars.AWS_REGION }}
       - name: Build and push Docker image
         uses: ./action-sets/docker/build-and-push
         with:
-          aws_account_id: ${{ env.AWS_ACCOUNT_ID }}
-          aws_region: ${{ env.AWS_REGION }}
+          aws_account_id: ${{ vars.AWS_ACCOUNT_ID }}
+          aws_region: ${{ vars.AWS_REGION }}

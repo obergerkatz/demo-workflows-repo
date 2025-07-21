@@ -14,6 +14,12 @@ runs:
   steps:
     - name: Build step
       uses: ./actions/docker/build
+      with:
+        aws_account_id: ${{ inputs.aws_account_id }}
+        aws_region: ${{ inputs.aws_region }}
 
     - name: Push step
       uses: ./actions/docker/push
+      with:
+        aws_account_id: ${{ inputs.aws_account_id }}
+        aws_region: ${{ inputs.aws_region }}
