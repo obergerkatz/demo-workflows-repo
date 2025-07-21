@@ -14,4 +14,4 @@ runs:
   steps:
     - name: Configure AWS Credentials
       shell: bash
-      run: echo "🔑 Simulating AWS credentials configuration for account ${{ inputs.aws_account_id }} in region ${{ intputs.aws_region }}"
+      run: echo "🔑 Simulating AWS credentials configuration for account ${{ inputs.aws_account_id }} in region ${{ inputs.aws_region }}"
