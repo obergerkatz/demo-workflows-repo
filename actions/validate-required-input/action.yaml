@@ -1,0 +1,22 @@
+name: "Validate Required Input"
+description: "Fails the workflow if a required input is an empty string"
+
+inputs:
+  input_name:
+    description: "Name of the input to validate"
+    required: true
+  input_value:
+    description: "Value of the input to validate"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Validate input
+      shell: bash
+      run: |
+        if [[ -z "${{ inputs.input_value }}" ]]; then
+          echo "❌ Error: input '${{ inputs.input_name }}' is required and cannot be empty"
+          exit 1
+        fi
+        echo "✅ Input '${{ inputs.input_name }}' is valid"
