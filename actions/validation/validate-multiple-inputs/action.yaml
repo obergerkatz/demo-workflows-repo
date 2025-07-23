@@ -17,12 +17,12 @@ runs:
           value="${pair#*=}"
           if [[ -z "$value" ]]; then
             MISSING+=("$name")
+            echo "❌ Error: Input '$name' is required and cannot be empty"
           else
-            echo "✅ '$name' is valid"
+            echo "✅ Info: Input '$name' is valid"
           fi
         done
 
         if [[ ${#MISSING[@]} -gt 0 ]]; then
-          echo "❌ Error: Found empty required inputs: ${MISSING[*]}"
           exit 1
         fi
