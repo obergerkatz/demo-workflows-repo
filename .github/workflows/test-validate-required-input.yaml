@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Run input validation
-        uses: ./.github/actions/validation/validate-multiple-inputs
+        uses: ./actions/validation/validate-multiple-inputs
         env:
           INPUTS: |
             yaml_file_path=${{ env.YAML_FILE_PATH }}
