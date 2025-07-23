@@ -1,18 +1,21 @@
 name: "Validate Multiple Inputs"
 description: "Fails if any given input (via env) is empty; reports all missing inputs"
 
+inputs:
+  list_of_inputs:
+    description: "List of inputs in the format 'name=value', separated by spaces"
+    required: true
+
 runs:
   using: "composite"
   steps:
     - name: Validate inputs via env
       shell: bash
-      env:
-        INPUTS: ${{ env.INPUTS }}
       run: |
         set -euo pipefail
 
         MISSING=()
-        for pair in $INPUTS; do
+        for pair in ${{ inputs.list_of_inputs }}; do
           name="${pair%%=*}"
           value="${pair#*=}"
           if [[ -z "$value" ]]; then
