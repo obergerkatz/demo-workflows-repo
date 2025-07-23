@@ -6,9 +6,10 @@ on:
 env:
   # Set example input values; you can leave one blank to test validation
   YAML_FILE_PATH: './app/config.yaml'
-  YAML_FIELD_PATH: 's'         # ← Leave empty to simulate failure
-  NEW_YAML_FIELD_VALUE: '1.2.3'
-  EMOJI: ':rocket:'
+  YAML_FIELD_PATH: ''         # ← Leave empty to simulate failure
+  NEW_YAML_FIELD_VALUE: ''
+  EMOJI_2: ':rocket:'
+  EMOJI_1: ''
 
 jobs:
   test_validation:
