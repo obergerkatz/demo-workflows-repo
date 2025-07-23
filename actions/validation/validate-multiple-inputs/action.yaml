@@ -24,5 +24,6 @@ runs:
         done
 
         if [[ ${#MISSING[@]} -gt 0 ]]; then
+          echo "❌ Error: The following inputs are missing or empty: ${MISSING[*]}"
           exit 1
         fi
