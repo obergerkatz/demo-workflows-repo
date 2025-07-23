@@ -26,4 +26,5 @@ jobs:
             yaml_file_path=${{ env.YAML_FILE_PATH }}
             yaml_field_path=${{ env.YAML_FIELD_PATH }}
             new_yaml_field_value=${{ env.NEW_YAML_FIELD_VALUE }}
-            emoji=${{ env.EMOJI }}
+            emoji_1=${{ env.EMOJI_1 }}
+            emoji_2=${{ env.EMOJI_2 }}
