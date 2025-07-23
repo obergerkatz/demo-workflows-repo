@@ -1,21 +1,25 @@
-name: Validate Inputs Matrix
+name: Test Validate Multiple Inputs
 
 on:
-  workflow_call:
+  workflow_dispatch:
+
+env:
+  # Set example input values; you can leave one blank to test validation
+  YAML_FILE_PATH: './app/config.yaml'
+  YAML_FIELD_PATH: ''         # ← Leave empty to simulate failure
+  NEW_YAML_FIELD_VALUE: '1.2.3'
+  EMOJI: ':rocket:'
 
 jobs:
-  validate-inputs:
+  test_validation:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        input_name: [ "repository", "ref", "token" ]
-    steps:
-    - name: Validate all inputs
-      uses: ./actions/validation/validate-multiple-inputs
-      env:
-        INPUTS: |
-          foo="FOO"
-          bar="BAR"
-          buzz=""
-          
 
+    steps:
+      - name: Run input validation
+        uses: ./.github/actions/validation/validate-multiple-inputs
+        env:
+          INPUTS: |
+            yaml_file_path=${{ env.YAML_FILE_PATH }}
+            yaml_field_path=${{ env.YAML_FIELD_PATH }}
+            new_yaml_field_value=${{ env.NEW_YAML_FIELD_VALUE }}
+            emoji=${{ env.EMOJI }}
