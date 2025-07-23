@@ -2,16 +2,6 @@ name: Validate Inputs Matrix
 
 on:
   workflow_call:
-    inputs:
-      repository:
-        required: true
-        type: string
-      ref:
-        required: true
-        type: string
-      token:
-        required: true
-        type: string
 
 jobs:
   validate-inputs:
@@ -20,8 +10,12 @@ jobs:
       matrix:
         input_name: [ "repository", "ref", "token" ]
     steps:
-      - name: Validate input '${{ matrix.input_name }}'
-        uses: ./actions/validate-required-input
-        with:
-          input_name: ${{ matrix.input_name }}
-          input_value: ${{ inputs[matrix.input_name] }}
+    - name: Validate all inputs
+      uses: ./actions/validation/validate-multiple-inputs
+      env:
+        INPUTS: |
+          foo="FOO"
+          bar="BAR"
+          buzz=""
+          
+
