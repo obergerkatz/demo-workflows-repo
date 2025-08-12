@@ -1,8 +1,0 @@
-name: "Configure AWS Credentials"
-description: "Simulates a step to configure AWS credentials"
-runs:
-  using: "composite"
-  steps:
-    - name: Configure AWS Credentials
-      shell: bash
-      run: echo "🔑 Simulating AWS credentials configuration for account ${{ env.AWS_ACCOUNT_ID }} in region ${{ env.AWS_REGION }}"

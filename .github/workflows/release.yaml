@@ -1,0 +1,17 @@
+name: Test Validate Multiple Inputs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test_validation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      -  name: Release
+         uses: softprops/action-gh-release@v2
+         with:
+           tag_name: v1.0.0
