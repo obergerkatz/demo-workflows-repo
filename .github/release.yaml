@@ -1,11 +1,6 @@
 # This file contains the template for the "auto-generated release notes"
 
 changelog:
-  exclude:
-    labels:
-      - ":chart_with_upwards_trend: dependency-update"
-    authors:
-      - dependabot
   categories:
     - title: "⚠️ Breaking changes"
       labels:
