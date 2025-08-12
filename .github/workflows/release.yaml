@@ -4,6 +4,10 @@ run-name: Release - ${{ github.sha }}
 on:
   workflow_dispatch:
 
+permissions:
+  id-token: write
+  contents: write
+
 jobs:
   test_validation:
     runs-on: ubuntu-latest
