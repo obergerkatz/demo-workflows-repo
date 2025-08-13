@@ -30,10 +30,19 @@ jobs:
           git tag ${{ inputs.tag }}
           git push origin ${{ inputs.tag }}
 
+      - name: Update CHANGELOG
+        id: changelog
+        uses: requarks/changelog-action@v1
+        with:
+          token: ${{ github.token }}
+          tag: ${{ inputs.tag }}
+
       - name: Create Release
         uses: ncipollo/release-action@v1.12.0
         with:
-          tag: ${{ inputs.tag }}
-          name: ${{ inputs.tag }}
-          generateReleaseNotes: true                  # let GitHub build the changelog
+          allowUpdates: true
+          draft: false
+          makeLatest: true
+          name: Release ${{ inputs.tag }}
+          body: ${{ steps.changelog.outputs.changes }}
           token: ${{ github.token }}
