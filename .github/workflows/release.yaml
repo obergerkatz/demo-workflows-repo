@@ -16,8 +16,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      -  name: Release
-         uses: softprops/action-gh-release@v2
-         with:
-           tag_name: v3.0.0
-           generate_release_notes: true
+      - name: Update CHANGELOG
+        id: changelog
+        uses: requarks/changelog-action@v1
+        with:
+          token: ${{ github.token }}
+          tag: 4.0.0
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1.12.0
+        with:
+          makeLatest: true
+          name: 4.0.0
+          body: ${{ steps.changelog.outputs.changes }}
+          token: ${{ github.token }}
