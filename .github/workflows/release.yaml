@@ -32,20 +32,13 @@ jobs:
 
       - name: Update CHANGELOG
         id: changelog
-        uses: requarks/changelog-action@v1
+        uses: ./actions/generate-changelog
         with:
-          token: ${{ github.token }}
           tag: ${{ inputs.tag }}
-          includeInvalidCommits: true
-          excludeTypes: ''
+          include_invalid_commits: 'true'
 
       - name: Create Release
-        uses: ncipollo/release-action@v1.12.0
+        uses: ./actions/create-release
         with:
-          allowUpdates: true
-          draft: false
-          makeLatest: true
-          tag: ${{ inputs.tag }}
-          name: Release ${{ inputs.tag }}
           body: ${{ steps.changelog.outputs.changes }}
-          token: ${{ github.token }}
+          tag: ${{ inputs.tag }}

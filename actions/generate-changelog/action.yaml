@@ -1,0 +1,37 @@
+---
+name: "Generate Changelog"
+description: "Generate the CHANGELOG since latest tag"
+
+inputs:
+  exclude_types:
+    description: "Comma-separated list of commit types to exclude from the changelog (e.g., 'chore,docs')"
+    required: false
+    default: ''
+  github_token:
+    description: "GitHub Token"
+    required: false
+    default: ${{ github.token }}
+  include_invalid_commits:
+    description: "Whether to include commits that don't respect the Conventional Commits format"
+    required: false
+    default: "false"
+  tag:
+    description: "The tag name to push (e.g., v1.2.3)"
+    required: true
+
+outputs:
+  changes:
+    description: "The generated changelog content"
+    value: ${{ steps.generate_changelog.outputs.changes }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Generate CHANGELOG
+      id: generate_changelog
+      uses: requarks/changelog-action@v1.10.2
+      with:
+        token: ${{ inputs.github_token }}
+        tag: ${{ inputs.tag }}
+        includeInvalidCommits: ${{ inputs.include_invalid_commits }}
+        excludeTypes: ${{ inputs.exclude_types }}
