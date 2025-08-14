@@ -1,5 +1,5 @@
 name: Release
-run-name: Release - ${{ github.sha }}
+run-name: Release - ${{ inputs.tag }}
 
 on:
   workflow_dispatch:
