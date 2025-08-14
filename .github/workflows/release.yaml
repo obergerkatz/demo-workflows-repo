@@ -61,7 +61,7 @@ jobs:
           payload: |
             channel: C095LKK3L8N
             markdown_text: "${{ steps.changelog.outputs.changes }}"
-            text: "${{ steps.changelog.outputs.changes }}"
+            text: ""
 
       - name: Send Slack message
         uses: slackapi/slack-github-action@v2.1.1
