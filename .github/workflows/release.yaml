@@ -81,3 +81,13 @@ jobs:
             channel: C095LKK3L8N
             text: "${{ steps.changelog.outputs.changes }}"
             mrkdwn: true
+
+      - name: Send Slack message
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          payload: |
+            channel: C095LKK3L8N
+            text: 'Deployment to `dev` failed, <@U08C0VACF6H> please check the logs and fix the issue :warning:'
+            mrkdwn: true
