@@ -38,6 +38,7 @@ jobs:
           include_invalid_commits: 'true'
 
       - name: Create Release
+        id: create_release
         uses: ./actions/create-release
         with:
           body: ${{ steps.changelog.outputs.changes }}
