@@ -52,3 +52,13 @@ jobs:
         run: |
             echo "Release URL: ${{ steps.create_release.outputs.html_url }}"
             echo "Release created successfully!"
+
+      - name: Send Slack message
+        id: send_slack_message
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          payload: |
+            channel: C095LKK3L8N
+            text: ${{ steps.changelog.outputs.changes }}

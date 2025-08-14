@@ -35,3 +35,4 @@ runs:
         tag: ${{ inputs.tag }}
         includeInvalidCommits: ${{ inputs.include_invalid_commits }}
         excludeTypes: ${{ inputs.exclude_types }}
+        writeToFile: false
