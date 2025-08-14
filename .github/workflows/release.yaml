@@ -61,4 +61,4 @@ jobs:
           token: ${{ secrets.SLACK_BOT_TOKEN }}
           payload: |
             channel: C095LKK3L8N
-            text: ${{ steps.changelog.outputs.changes }}
+            text: "${{ steps.changelog.outputs.changes }}"
