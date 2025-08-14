@@ -48,11 +48,6 @@ jobs:
         run: |
           echo "Changelog: ${{ steps.changelog.outputs.changes }}"
 
-      - name: Echo html_url
-        run: |
-            echo "Release URL: ${{ steps.create_release.outputs.html_url }}"
-            echo "Release created successfully!"
-
       - name: Send Slack message
         uses: slackapi/slack-github-action@v2.1.1
         with:
