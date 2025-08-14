@@ -63,4 +63,3 @@ jobs:
             markdown_text: "${{ steps.changelog.outputs.changes }}"
             text: "Release changelog for ${{ inputs.tag }}"
             errors: "true"
-
