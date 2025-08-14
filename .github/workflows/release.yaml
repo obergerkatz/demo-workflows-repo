@@ -54,7 +54,6 @@ jobs:
             echo "Release created successfully!"
 
       - name: Send Slack message
-        id: send_slack_message
         uses: slackapi/slack-github-action@v2.1.1
         with:
           method: chat.postMessage
@@ -62,3 +61,23 @@ jobs:
           payload: |
             channel: C095LKK3L8N
             markdown_text: "${{ steps.changelog.outputs.changes }}"
+
+      - name: Send Slack message
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          payload: |
+            channel: C095LKK3L8N
+            text: "${{ steps.changelog.outputs.changes }}"
+            
+
+      - name: Send Slack message
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          payload: |
+            channel: C095LKK3L8N
+            text: "${{ steps.changelog.outputs.changes }}"
+            mrkdwn: true
