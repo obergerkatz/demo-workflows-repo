@@ -42,3 +42,12 @@ jobs:
         with:
           body: ${{ steps.changelog.outputs.changes }}
           tag: ${{ inputs.tag }}
+
+      - name: Echo changelog
+        run: |
+          echo "Changelog: ${{ steps.changelog.outputs.changes }}"
+
+      - name: Echo html_url
+        run: |
+            echo "Release URL: ${{ steps.create_release.outputs.html_url }}"
+            echo "Release created successfully!"

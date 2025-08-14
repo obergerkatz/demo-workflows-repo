@@ -14,6 +14,11 @@ inputs:
     description: "The tag name to push (e.g., v1.2.3, 4.5.6)"
     required: true
 
+outputs:
+  html_url:
+    description: "The URL of the created release"
+    value: ${{ steps.create_release.outputs.html_url }}
+
 runs:
   using: "composite"
   steps:
